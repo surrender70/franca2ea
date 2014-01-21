@@ -1,0 +1,49 @@
+package test.resources.fidl
+
+typeCollection TestTypes {
+	
+	struct Struct4 {
+		Map1 map1
+		Array1 array1
+		Typedef1 typedef1
+		Union2 union2
+		Union1 union1
+	}
+
+	map Map1 { Array1 to Typedef1 }
+	
+	array Array1 of Typedef1
+
+	typedef Typedef1 is Union2
+
+	union Union2 extends Union1 {
+		Boolean extendedBool
+	}
+
+	union Union1 {
+		Struct3 struct3
+	}
+
+	struct Struct3 {
+		Struct2 struct2
+	}
+
+	struct Struct2 extends Struct1 {
+		Boolean extendedBool
+	}
+
+	struct Struct1 {
+		Enum1 enum1
+		Enum1_Extended enum2
+	}
+	
+	enumeration Enum1_Extended extends Enum1 {
+		LITERAL_1
+	}
+	
+	enumeration Enum1 {
+		LITERAL_0
+	}
+	
+	
+}

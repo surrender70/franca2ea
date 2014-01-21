@@ -1,0 +1,14 @@
+package flightservice.common
+
+typeCollection CommonData { 
+
+	typedef TTimeOffset is Int16
+	
+	struct Time {
+		UInt16 hour
+		UInt16 minute
+		UInt16 seconds
+		TTimeOffset offsetGMT
+	}
+
+}

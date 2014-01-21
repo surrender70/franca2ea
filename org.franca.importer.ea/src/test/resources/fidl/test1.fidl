@@ -1,0 +1,66 @@
+package org.franca.test
+
+interface myInterface {
+	method myMethod1 {
+	}
+	enumeration enum1 {
+		ENUM_LITERAL_1
+		ENUM_LITERAL_2 = "2"
+	}
+
+	enumeration enum3 extends enum2 {
+		ENUM_LITERAL_EXTENDED
+	}
+
+	enumeration enum2 {
+		ENUM_LITERAL_1
+		ENUM_LITERAL_2 = "2"
+		ENUM_LITERAL_3 = "3"
+	}
+
+	<**
+		@author : Joe Cool 
+	**>
+	struct struct1 {
+		Boolean a
+		Boolean b
+		enum2 [] e
+	}
+
+	struct struct2 {
+		struct1 s1
+		struct1 s2
+		Boolean c
+	} 
+	
+	array array1 of struct2
+
+	typedef typedef1 is Double
+
+	struct struct5 extends struct4 {
+		
+	}
+
+	struct struct4 {
+		struct3 [] s3
+		enum1 [] e1
+		union1 u1
+	}
+
+	struct struct3 {
+		enum1 e1
+		array1 a1
+		typedef1 t1
+	}
+	
+	union union1 {
+		Boolean b
+		struct3 s3
+	}
+
+	map map1 { Int16 to union1 }
+
+}
+
+
+

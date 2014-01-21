@@ -1,0 +1,121 @@
+package flightservice.flightdata
+
+import flightservice.common.CommonData.* from "common.fidl" 
+
+typeCollection FlightDataTypes {
+
+	<**
+	   @description : The flight number, e.g. LH4506
+	**>
+	typedef FlightNumber is String
+	
+	<**
+	   @description : The 3 letter code (3LC) of the airport, e.g. JFK
+	**>
+	typedef ThreeLetterCode is String
+	
+	<** @description : The available states of a flight **>
+	enumeration FlightStatus {
+		<** @description: The flight is not scheduled **>
+	   NOT_SCHEDULED
+		<** @description: The flight is now in schedule **>
+	   SCHEDULED
+		<** @description: It is boarding time **>
+	   BOARDING
+		<** @description: The aircraft has just ascended **>
+	   ASCENDING
+		<** @description: The flight reached its travel altitude **>
+	   IN_AIR
+		<** @description: The aircraft is descending **>
+	   DESCENDING
+		<** @description: The aircraft has landed **>
+	   LANDED
+	}
+
+	<**
+		@description : The available aircraft types. The names are self-explanatory
+	**>
+	enumeration AircraftType {
+		AIRBUS_330
+		AIRBUS_321
+		BOEING_737
+		BOEING_757
+		BOEING_767		
+	}
+
+	<**
+		@description : The available accuracy types for a flight
+		@param : ON_SCHEDULE The flight is on schedule
+		@param : DELAYED The flight is delayed
+		@param : AHEAD_OF_SCHEDULE The flight is to soon
+	**>
+	enumeration Accuracy {
+		ON_SCHEDULE
+		DELAYED
+		AHEAD_OF_SCHEDULE
+	}
+
+	<**
+		@description : The available seat categories
+		@param : FIRST_CLASS
+		@param : BUSINESS
+		@param : ECONOMY
+	**>
+	enumeration SeatCategory {
+		FIRST_CLASS
+		BUSINESS
+		ECONOMY		
+	}
+
+	<**
+		@description : Capacity of passenger seats on a certain seat category
+		@param : category The given category (e.g. BUSINESS)
+		@param : count Number of available seats in this category
+	**>
+	struct SeatsPerCategory {
+		SeatCategory category
+		UInt16 count
+	}
+
+	<**
+		@description : A list of all available seats per category
+	**>
+	array Capacity of SeatsPerCategory 
+
+	<**
+	   @description : Static information on a certain flight
+	   @param : flightNumber The flight number, e.g. LH4506
+	   @param : start The departure airport, e.g. MUC
+	   @param : destination The arrival airport, e.g. JFK
+	   @param : departure The departure time
+	   @param : arrival The arrival time
+	**>
+	struct TStaticFlightInformation {
+	   FlightNumber flightNumber
+	   ThreeLetterCode start
+	   ThreeLetterCode destination
+	   Time departure
+	   Time arrival	   
+	   AircraftType aircraft 
+	}
+
+	<**
+	   @description : Describes dynamic information for a given flight, means while the airplane is on route	   
+	   @param : flightNumber The flight number, e.g. LH4506
+	   @param : remainingTravelDistance The remaining travel distance in minutes, until the aircraft will reach its destination
+	   @param : remainingTravelTime The remaining travel time in seconds, until the aircraft will reach its destination
+	   @param : speed The current speed in meters per second
+	   @param : heading The current heading in degree (0 to 360 degree). 0 degree is north-up, counting clockwise
+	   @param : status The current status of the flight (e.g. BOARDING, LANDED, etc.)
+	   @param : accuracy Gives information, if the flight is on schedule
+	**>
+	struct DynamicFlightInformtation {
+	   FlightNumber flightNumber
+	   UInt32 remainingTravelDistance
+	   UInt32 remainingTravelTime
+	   UInt32 speed
+	   Float heading
+	   FlightStatus status
+	   Accuracy accuracy	   
+	}	
+}

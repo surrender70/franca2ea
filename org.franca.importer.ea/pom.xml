@@ -1,0 +1,160 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.franca.generators</groupId>
+	<artifactId>org.franca.importer.ea</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>org.franca.importer.ea</name>
+	<url>http://maven.apache.org</url>
+	<!-- <properties> <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> 
+		</properties> -->
+<!--  
+	<repositories>
+		<repository>
+			<id>Sonatype Snapshots</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+		</repository>
+	</repositories>
+-->
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+
+			<!-- Poinst to the directory where the native EA library SSJavaCOM.dll 
+				is located -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<forkMode>once</forkMode>
+					<argLine>-Djava.library.path=${project.basedir}/src/main/resources</argLine>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.2.1</version>
+				<executions>
+					<execution>
+						<id>package-jar-with-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<configuration>
+							<appendAssemblyId>false</appendAssemblyId>
+							<descriptorRefs>
+								<descriptorRef>jar-with-dependencies</descriptorRef>
+							</descriptorRefs>
+							<archive>
+								<manifest>
+									<mainClass>org.franca.importer.ea.ImporterMain</mainClass>
+								</manifest>
+							</archive>
+							<finalName>franca2ea-exe</finalName>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+<!--  
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.1</version>
+				<executions>
+					<execution>
+						<id>copy</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>
+								${project.build.directory}/lib
+							</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+-->
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.0</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-cli</groupId>
+			<artifactId>commons-cli</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.eclipse.emf</groupId>
+			<artifactId>org.eclipse.emf.ecore</artifactId>
+			<version>2.9.1-v20130827-0309</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.eclipse.emf</groupId>
+			<artifactId>org.eclipse.emf.common</artifactId>
+			<version>2.9.1-v20130827-0309</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.eclipse.xtext</groupId>
+			<artifactId>org.eclipse.xtext</artifactId>
+			<version>2.5.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.eclipse.emf</groupId>
+			<artifactId>org.eclipse.emf.mwe2.language</artifactId>
+			<version>2.0.0</version>
+		</dependency>
+
+		<!-- the eaapi.jar needs to be redeployed here -->
+		<dependency>
+			<groupId>org.sparx</groupId>
+			<artifactId>eaapi</artifactId>
+			<version>8.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/main/resources/eaapi_8.0.jar</systemPath>
+		</dependency>
+
+		<!-- TO BE FIXED LATER - WHEN FRANCA IS OFFICIALLY AVAILABLE in MAVEN CENTRAL -->
+		<dependency>
+			<groupId>org.franca</groupId>
+			<artifactId>core</artifactId>
+			<version>0.8.11</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/main/resources/org.franca.core_0.8.11.jar</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>org.franca</groupId>
+			<artifactId>core.dsl</artifactId>
+			<version>0.8.11</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/main/resources/org.franca.core.dsl_0.8.11.jar</systemPath>
+		</dependency>
+
+	</dependencies>
+</project>
