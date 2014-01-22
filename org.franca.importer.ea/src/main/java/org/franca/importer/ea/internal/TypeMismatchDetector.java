@@ -35,9 +35,9 @@ public class TypeMismatchDetector extends ImportProcessorDecorator {
 	
 
 	@Override
-	public Attribute makeField(Element parent, FField src) {				
+	public Attribute handleField(Element parent, FField src) {				
 		
-		Attribute a = processor.makeField(parent, src);
+		Attribute a = processor.handleField(parent, src);
 		
 		if(!a.GetType().equals(getTypeName(src.getType()))) {
 			
@@ -52,9 +52,9 @@ public class TypeMismatchDetector extends ImportProcessorDecorator {
 
 
 	@Override
-	public Attribute makeMapKey(Element parent, FTypeRef src) {
+	public Attribute handleMapKey(Element parent, FTypeRef src) {
 		
-		Attribute a = processor.makeMapKey(parent, src);
+		Attribute a = processor.handleMapKey(parent, src);
 		
 		if(!a.GetType().equals(getTypeName(src))) {
 			
@@ -69,9 +69,9 @@ public class TypeMismatchDetector extends ImportProcessorDecorator {
 	}
 
 	@Override
-	public Attribute makeMapValue(Element parent, FTypeRef src) {
+	public Attribute handleMapValue(Element parent, FTypeRef src) {
 		
-		Attribute a = processor.makeMapKey(parent, src);
+		Attribute a = processor.handleMapKey(parent, src);
 		
 		if(!a.GetType().equals(getTypeName(src))) {
 			
@@ -86,9 +86,9 @@ public class TypeMismatchDetector extends ImportProcessorDecorator {
 	}
 
 	@Override
-	public Attribute makeAttribute(Element parent, FAttribute src) {
+	public Attribute handleAttribute(Element parent, FAttribute src) {
 		
-		Attribute a = processor.makeAttribute(parent, src);
+		Attribute a = processor.handleAttribute(parent, src);
 		
 		if(!a.GetType().equals(getTypeName(src.getType()))) {
 			

@@ -34,17 +34,17 @@ public class NotesUpdater extends ImportProcessorDecorator {
 	}
 
 	@Override
-	public Package makePackage(Package parent, FModel src,
+	public Package handleModel(Package parent, FModel src,
 			String packageName) {
 				
-		return processor.makePackage(parent, src, packageName);
+		return processor.handleModel(parent, src, packageName);
 		
 	}
 
 	@Override
-	public Element makeInterface(ElementContainer<?> parent, FInterface src) {
+	public Element handleInterface(ElementContainer<?> parent, FInterface src) {
 		
-		Element e = processor.makeInterface(parent, src);
+		Element e = processor.handleInterface(parent, src);
 		
 		e.SetNotes(getDescription(src));
 		e.Update();
@@ -53,9 +53,9 @@ public class NotesUpdater extends ImportProcessorDecorator {
 	}
 
 	@Override
-	public Method makeSimpleMethod(Element parent, FMethod src) {
+	public Method handleSimpleMethod(Element parent, FMethod src) {
 				
-		Method m = processor.makeSimpleMethod(parent, src);
+		Method m = processor.handleSimpleMethod(parent, src);
 		
 		m.SetNotes(getDescription(src));
 		m.Update();
@@ -64,9 +64,9 @@ public class NotesUpdater extends ImportProcessorDecorator {
 	}
 
 	@Override
-	public Method makeBroadcastMethod(Element parent, FBroadcast src) {
+	public Method handleBroadcastMethod(Element parent, FBroadcast src) {
 
-		Method m = processor.makeBroadcastMethod(parent, src);
+		Method m = processor.handleBroadcastMethod(parent, src);
 		
 		m.SetNotes(getDescription(src));
 		m.Update();
@@ -76,10 +76,10 @@ public class NotesUpdater extends ImportProcessorDecorator {
 	}
 
 	@Override
-	public Parameter makeParameter(Method parent, EParamType direction,
+	public Parameter handleParameter(Method parent, EParamType direction,
 			FArgument src) {
 						
-		Parameter p = processor.makeParameter(parent, direction, src);
+		Parameter p = processor.handleParameter(parent, direction, src);
 		
 		p.SetNotes(getDescription(src));
 		p.Update();
@@ -89,10 +89,10 @@ public class NotesUpdater extends ImportProcessorDecorator {
 	}
 
 	@Override
-	public Parameter makeParameter(Method parent, EParamType direction,
+	public Parameter handleParameter(Method parent, EParamType direction,
 			FEnumerationType src) {
 		
-		Parameter p = processor.makeParameter(parent, direction, src);
+		Parameter p = processor.handleParameter(parent, direction, src);
 		
 		p.SetNotes(getDescription(src));
 		p.Update();
@@ -101,9 +101,9 @@ public class NotesUpdater extends ImportProcessorDecorator {
 	}	
 	
 	@Override
-	public Element makeStructure(ElementContainer<?> parent, FStructType src) {
+	public Element handleStructure(ElementContainer<?> parent, FStructType src) {
 
-		Element s = processor.makeStructure(parent, src);
+		Element s = processor.handleStructure(parent, src);
 				
 		s.SetNotes(getDescription(src));		
 		s.SetAuthor(getAuthor(src));
@@ -113,9 +113,9 @@ public class NotesUpdater extends ImportProcessorDecorator {
 	}
 
 	@Override
-	public Element makeUnion(ElementContainer<?> parent, FUnionType src) {
+	public Element handleUnion(ElementContainer<?> parent, FUnionType src) {
 
-		Element s = processor.makeUnion(parent, src);
+		Element s = processor.handleUnion(parent, src);
 				
 		s.SetNotes(getDescription(src));		
 		s.SetAuthor(getAuthor(src));
@@ -126,9 +126,9 @@ public class NotesUpdater extends ImportProcessorDecorator {
 	
 	
 	@Override
-	public Element makeEnumeration(ElementContainer<?> parent, FEnumerationType src) {
+	public Element handleEnumeration(ElementContainer<?> parent, FEnumerationType src) {
 		
-		Element e = processor.makeEnumeration(parent, src);
+		Element e = processor.handleEnumeration(parent, src);
 		
 		e.SetNotes(getDescription(src));
 		e.Update();
@@ -137,9 +137,9 @@ public class NotesUpdater extends ImportProcessorDecorator {
 	}
 
 	@Override
-	public Attribute makeField(Element parent, FField src) {
+	public Attribute handleField(Element parent, FField src) {
 		
-		Attribute f = processor.makeField(parent, src);
+		Attribute f = processor.handleField(parent, src);
 		
 		f.SetNotes(getDescription(src));
 		f.Update();
@@ -148,9 +148,9 @@ public class NotesUpdater extends ImportProcessorDecorator {
 	}
 
 	@Override
-	public Attribute makeEnumerator(Element parent, FEnumerator src) {				
+	public Attribute handleEnumerator(Element parent, FEnumerator src) {				
 		
-		Attribute e = processor.makeEnumerator(parent, src);
+		Attribute e = processor.handleEnumerator(parent, src);
 				
 		e.SetNotes(getDescription(src));
 		e.Update();
@@ -159,20 +159,9 @@ public class NotesUpdater extends ImportProcessorDecorator {
 	}
 
 	@Override
-	public Element makeTypedef(ElementContainer<?> parent, FTypeDef src) {
+	public Element handleTypedef(ElementContainer<?> parent, FTypeDef src) {
 		
-		Element e = processor.makeTypedef(parent, src);
-		
-		e.SetNotes(getDescription(src));
-		e.Update();
-		
-		return e;
-	}
-
-	@Override
-	public Element makeArray(ElementContainer<?> parent, FArrayType src) {
-		
-		Element e = processor.makeArray(parent, src);
+		Element e = processor.handleTypedef(parent, src);
 		
 		e.SetNotes(getDescription(src));
 		e.Update();
@@ -181,9 +170,20 @@ public class NotesUpdater extends ImportProcessorDecorator {
 	}
 
 	@Override
-	public Element makeMap(ElementContainer<?> parent, FMapType src) {
+	public Element handleArray(ElementContainer<?> parent, FArrayType src) {
 		
-		Element s = processor.makeMap(parent, src);
+		Element e = processor.handleArray(parent, src);
+		
+		e.SetNotes(getDescription(src));
+		e.Update();
+		
+		return e;
+	}
+
+	@Override
+	public Element handleMap(ElementContainer<?> parent, FMapType src) {
+		
+		Element s = processor.handleMap(parent, src);
 		
 		s.SetNotes(getDescription(src));		
 		s.SetAuthor(getAuthor(src));
@@ -195,9 +195,9 @@ public class NotesUpdater extends ImportProcessorDecorator {
 
 
 	@Override
-	public Attribute makeAttribute(Element parent, FAttribute src) {
+	public Attribute handleAttribute(Element parent, FAttribute src) {
 		
-		Attribute attr = processor.makeAttribute(parent, src);
+		Attribute attr = processor.handleAttribute(parent, src);
 		
 		attr.SetNotes(getDescription(src));
 		attr.Update();

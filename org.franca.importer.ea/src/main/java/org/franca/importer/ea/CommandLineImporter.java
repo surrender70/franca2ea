@@ -1,6 +1,5 @@
 package org.franca.importer.ea;
 
-import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -9,15 +8,32 @@ import org.franca.importer.ea.utils.CommandLineHelper;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
-public class ImporterMain {
+/**
+ * 
+ * This class provides the possibility to use the Franca-2-EA importer via command-line
+ * It can also be used to see how the API is working:
+ * 
+ * (1) Configure the tool with dependency-injection
+ * (2) Get an instance of the ImporterFacade
+ * (3) Setup the facade with the import configuration
+ * (4) Invoke the import
+ * (5) tear everything down
+ * 
+ * @author Torsten Mosis
+ *
+ */
+public class CommandLineImporter {
 
-	private static Logger jlog = Logger.getLogger(ImporterMain.class.getName());
+	private static Logger jlog = Logger.getLogger(CommandLineImporter.class.getName());
 
 	public int doImport(String[] args) {
 
+		// (1) Configure the tool with dependency injection
+		// (2) Get an instance of the ImporterFacade
 		Injector injector = Guice.createInjector(new CreateOrOverwriteModule());
 		ImporterFacade facade = injector.getInstance(ImporterFacade.class);
 
+		// Read the runtime configuration parameter
 		CommandLineHelper cliOptions = new CommandLineHelper();
 		cliOptions.createOptions();
 		cliOptions.parseOptions(args);
@@ -26,15 +42,16 @@ public class ImporterMain {
 				&& cliOptions.getRootPackage() != null
 				&& cliOptions.getFrancaPath() != null) {
 
-			// try to open project and find the root Package
+			// (3) Setup the facade with the import configuration
 			if (!facade.setup(cliOptions.getEaProject(), cliOptions.getRootPackage())) {
 				facade.tearDown();
 				return -1;
 			}
 			
+			// (4) Invoke the import
 			facade.execute(cliOptions.getFrancaPath());
 
-			// tear everything down
+			// (5) tear everything down
 			facade.tearDown();
 
 			return 0;
@@ -51,7 +68,7 @@ public class ImporterMain {
 	 */
 	public static void main(String[] args) {
 
-		ImporterMain importer = new ImporterMain();
+		CommandLineImporter importer = new CommandLineImporter();
 
 		int result = importer.doImport(args);
 

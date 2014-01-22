@@ -24,6 +24,7 @@ import org.franca.importer.ea.internal.DummyProcessor;
 import org.franca.importer.ea.internal.FindByName;
 import org.franca.importer.ea.internal.Franca2EA;
 import org.franca.importer.ea.internal.ImportProcessorDecorator;
+import org.franca.importer.ea.internal.ImporterFacadeImpl;
 import org.franca.importer.ea.internal.utils.EAConstants;
 import org.franca.importer.ea.internal.utils.EARepositoryAccessor;
 import org.franca.importer.ea.internal.utils.ElementContainer;
@@ -70,6 +71,7 @@ public class FindByNameTest {
 			@Override
 			protected void configure() { 
 				bindConstant().annotatedWith(Names.named("create")).to(false);				
+				bind(ImporterFacade.class).to(ImporterFacadeImpl.class);
 			}
 			
 			@Provides
@@ -79,9 +81,9 @@ public class FindByNameTest {
 						new DummyProcessor())) {
 					
 					@Override
-					public Element makeStructure(ElementContainer<?> parent, FStructType src) {
+					public Element handleStructure(ElementContainer<?> parent, FStructType src) {
 						
-						Element result = processor.makeStructure(parent, src);
+						Element result = processor.handleStructure(parent, src);
 						
 						assertNotNull(result);
 						
@@ -94,9 +96,9 @@ public class FindByNameTest {
 
 					
 					@Override
-					public Element makeUnion(ElementContainer<?> parent, FUnionType src) {
+					public Element handleUnion(ElementContainer<?> parent, FUnionType src) {
 						
-						Element result = processor.makeUnion(parent, src);
+						Element result = processor.handleUnion(parent, src);
 						
 						assertNotNull(result);
 						
@@ -109,9 +111,9 @@ public class FindByNameTest {
 					
 					
 					@Override
-					public Method makeSimpleMethod(Element parent, FMethod src) {
+					public Method handleSimpleMethod(Element parent, FMethod src) {
 						
-						Method result = processor.makeSimpleMethod(parent, src);
+						Method result = processor.handleSimpleMethod(parent, src);
 						
 						assertNotNull(result);
 						
@@ -121,16 +123,16 @@ public class FindByNameTest {
 					}
 					
 					@Override
-					public Parameter makeParameter(Method parent, EParamType direction,
+					public Parameter handleParameter(Method parent, EParamType direction,
 							FArgument src) {
 										
 						return null;
 					}
 					
 					@Override
-					public Package makePackage(Package parent, FModel src, String packageName) {
+					public Package handleModel(Package parent, FModel src, String packageName) {
 						
-						Package result = processor.makePackage(parent, src, packageName);
+						Package result = processor.handleModel(parent, src, packageName);
 						
 						assertNotNull(result);
 						
@@ -140,9 +142,9 @@ public class FindByNameTest {
 					}
 					
 					@Override
-					public Element makeInterface(ElementContainer<?> parent, FInterface src) {
+					public Element handleInterface(ElementContainer<?> parent, FInterface src) {
 						
-						Element result = processor.makeInterface(parent, src);
+						Element result = processor.handleInterface(parent, src);
 						
 						assertNotNull(result);
 						
@@ -152,9 +154,9 @@ public class FindByNameTest {
 					}
 					
 					@Override
-					public Attribute makeField(Element parent, FField src) {
+					public Attribute handleField(Element parent, FField src) {
 						
-						Attribute result = processor.makeField(parent, src);
+						Attribute result = processor.handleField(parent, src);
 										
 						assertNotNull(result);
 						
@@ -166,9 +168,9 @@ public class FindByNameTest {
 					}
 					
 					@Override
-					public Attribute makeEnumerator(Element parent, FEnumerator src) {
+					public Attribute handleEnumerator(Element parent, FEnumerator src) {
 						
-						Attribute result = processor.makeEnumerator(parent, src);
+						Attribute result = processor.handleEnumerator(parent, src);
 						
 						assertNotNull(result);
 						
@@ -178,9 +180,9 @@ public class FindByNameTest {
 					}
 					
 					@Override
-					public Element makeEnumeration(ElementContainer<?> parent, FEnumerationType src) {
+					public Element handleEnumeration(ElementContainer<?> parent, FEnumerationType src) {
 						
-						Element result = processor.makeEnumeration(parent, src);
+						Element result = processor.handleEnumeration(parent, src);
 						
 						assertNotNull(result);
 						
@@ -192,15 +194,15 @@ public class FindByNameTest {
 					}
 					
 					@Override
-					public Method makeBroadcastMethod(Element parent, FBroadcast src) {
+					public Method handleBroadcastMethod(Element parent, FBroadcast src) {
 						// TODO Auto-generated method stub
 						return null;
 					}
 
 					@Override
-					public Element makeTypedef(ElementContainer<?> parent, FTypeDef src) {
+					public Element handleTypedef(ElementContainer<?> parent, FTypeDef src) {
 						
-						Element result = processor.makeTypedef(parent, src);
+						Element result = processor.handleTypedef(parent, src);
 						
 						assertNotNull(result);
 										
@@ -212,9 +214,9 @@ public class FindByNameTest {
 					}
 
 					@Override
-					public Element makeArray(ElementContainer<?> parent, FArrayType src) {
+					public Element handleArray(ElementContainer<?> parent, FArrayType src) {
 						
-						Element result = processor.makeArray(parent, src);
+						Element result = processor.handleArray(parent, src);
 						
 						assertNotNull(result);
 						
@@ -226,9 +228,9 @@ public class FindByNameTest {
 					}
 
 					@Override
-					public Element makeMap(ElementContainer<?> parent, FMapType src) {
+					public Element handleMap(ElementContainer<?> parent, FMapType src) {
 						
-						Element result = processor.makeMap(parent, src);
+						Element result = processor.handleMap(parent, src);
 						
 						assertNotNull(result);
 						
@@ -240,21 +242,21 @@ public class FindByNameTest {
 					}
 
 					@Override
-					public Attribute makeMapKey(Element parent, FTypeRef src) {
+					public Attribute handleMapKey(Element parent, FTypeRef src) {
 									    				
 						return null;
 					}
 
 					@Override
-					public Attribute makeMapValue(Element parent, FTypeRef src) {
+					public Attribute handleMapValue(Element parent, FTypeRef src) {
 						
 						return null;
 					}
 
 					@Override
-					public Attribute makeAttribute(Element parent, FAttribute src) {
+					public Attribute handleAttribute(Element parent, FAttribute src) {
 						
-						Attribute result = processor.makeAttribute(parent, src);
+						Attribute result = processor.handleAttribute(parent, src);
 
 						assertNotNull(result);
 						

@@ -34,100 +34,100 @@ public abstract class ImportProcessorDecorator extends ImportProcessor {
 	}
 	
 	@Override	
-	public Package makePackage(Package parent, FModel src, String packageName) {
-		return processor.makePackage(parent, src, packageName);
+	public Package handleModel(Package parent, FModel src, String packageName) {
+		return processor.handleModel(parent, src, packageName);
 	}
 
 	@Override	
-	public Package makePackage(Package parent, FTypeCollection src) {
-		return processor.makePackage(parent, src);
+	public Package handleTypeCollection(Package parent, FTypeCollection src) {
+		return processor.handleTypeCollection(parent, src);
 	}
 	
 	@Override
-	public Element makeInterface(ElementContainer<?> parent, FInterface src) {
-		return processor.makeInterface(parent, src);
+	public Element handleInterface(ElementContainer<?> parent, FInterface src) {
+		return processor.handleInterface(parent, src);
 	}
 
 	@Override
-	public Method makeSimpleMethod(Element parent, FMethod src) {
-		return processor.makeSimpleMethod(parent, src);
+	public Method handleSimpleMethod(Element parent, FMethod src) {
+		return processor.handleSimpleMethod(parent, src);
 	}
 
 	@Override
-	public Method makeBroadcastMethod(Element parent, FBroadcast src) {
-		return processor.makeBroadcastMethod(parent, src);
+	public Method handleBroadcastMethod(Element parent, FBroadcast src) {
+		return processor.handleBroadcastMethod(parent, src);
 	}
 
 	@Override
-	public Parameter makeParameter(Method parent, EParamType direction, FArgument src) {
-		return processor.makeParameter(parent, direction, src);
+	public Parameter handleParameter(Method parent, EParamType direction, FArgument src) {
+		return processor.handleParameter(parent, direction, src);
 	}
 
 	@Override
-	public Element makeStructure(ElementContainer<?> parent, FStructType src) {
-		return processor.makeStructure(parent, src);
+	public Element handleStructure(ElementContainer<?> parent, FStructType src) {
+		return processor.handleStructure(parent, src);
 	}
 
 	@Override
-	public Element makeEnumeration(ElementContainer<?> parent, FEnumerationType src) {
-		return processor.makeEnumeration(parent, src);
+	public Element handleEnumeration(ElementContainer<?> parent, FEnumerationType src) {
+		return processor.handleEnumeration(parent, src);
 	}
 	
 	@Override
-	public Attribute makeField(Element parent, FField src) {
-		return processor.makeField(parent, src);
+	public Attribute handleField(Element parent, FField src) {
+		return processor.handleField(parent, src);
 	}
 	
 	@Override
-	public Attribute makeEnumerator(Element parent, FEnumerator src) {
-		return processor.makeEnumerator(parent, src);
+	public Attribute handleEnumerator(Element parent, FEnumerator src) {
+		return processor.handleEnumerator(parent, src);
 	}
 
 	@Override
-	public Element makeTypedef(ElementContainer<?> parent, FTypeDef src) {
-		return processor.makeTypedef(parent, src);
+	public Element handleTypedef(ElementContainer<?> parent, FTypeDef src) {
+		return processor.handleTypedef(parent, src);
 	}
 	
 	@Override
-	public Element makeArray(ElementContainer<?> parent, FArrayType src) {
-		return processor.makeArray(parent, src);
+	public Element handleArray(ElementContainer<?> parent, FArrayType src) {
+		return processor.handleArray(parent, src);
 	}
 
 	@Override
-	public Element makeUnion(ElementContainer<?> parent, FUnionType src) {
-		return processor.makeUnion(parent, src);
+	public Element handleUnion(ElementContainer<?> parent, FUnionType src) {
+		return processor.handleUnion(parent, src);
 	}
 
 	@Override
-	public Element makeMap(ElementContainer<?> parent, FMapType src) {
-		return processor.makeMap(parent, src);
+	public Element handleMap(ElementContainer<?> parent, FMapType src) {
+		return processor.handleMap(parent, src);
 	}
 
 	@Override
-	public Attribute makeMapKey(Element parent, FTypeRef src) {
-		return processor.makeMapKey(parent, src);
+	public Attribute handleMapKey(Element parent, FTypeRef src) {
+		return processor.handleMapKey(parent, src);
 	}
 
 	@Override
-	public Attribute makeMapValue(Element parent, FTypeRef src) {
-		return processor.makeMapValue(parent, src);
+	public Attribute handleMapValue(Element parent, FTypeRef src) {
+		return processor.handleMapValue(parent, src);
 	}
 
 	@Override
-	public Attribute makeAttribute(Element parent, FAttribute src) {
-		return processor.makeAttribute(parent, src);
+	public Attribute handleAttribute(Element parent, FAttribute src) {
+		return processor.handleAttribute(parent, src);
 	}
 
 	@Override
-	public Parameter makeParameter(Method parent, EParamType direction,
+	public Parameter handleParameter(Method parent, EParamType direction,
 			FEnumerationType src) {
-		return processor.makeParameter(parent, direction, src);
+		return processor.handleParameter(parent, direction, src);
 	}
 
 	@Override
-	public Parameter makeParameter(Method parent, EParamType direction,
+	public Parameter handleParameter(Method parent, EParamType direction,
 			FEnumerator src) {
-		return processor.makeParameter(parent, direction, src);
+		return processor.handleParameter(parent, direction, src);
 	}
 	
 

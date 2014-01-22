@@ -34,117 +34,117 @@ public class DummyProcessor extends ImportProcessor {
 	private static Logger jlog =  Logger.getLogger(DummyProcessor.class.getName());	
 
 	@Override
-	public Package makePackage(Package parent, FModel src, String packageName) {
+	public Package handleModel(Package parent, FModel src, String packageName) {
 		jlog.log(Level.FINE, DUMMY_TRACE_MSG);		
 		return null;
 	}
 
 	@Override
-	public Element makeInterface(ElementContainer<?> parent, FInterface src) {
+	public Element handleInterface(ElementContainer<?> parent, FInterface src) {
 		jlog.log(Level.FINE, DUMMY_TRACE_MSG);
 		return null;
 	}
 
 	@Override
-	public Method makeSimpleMethod(Element parent, FMethod src) {
+	public Method handleSimpleMethod(Element parent, FMethod src) {
 		jlog.log(Level.FINE, DUMMY_TRACE_MSG);
 		return null;
 	}
 
 	@Override
-	public Method makeBroadcastMethod(Element parent, FBroadcast src) {
+	public Method handleBroadcastMethod(Element parent, FBroadcast src) {
 		jlog.log(Level.FINE, DUMMY_TRACE_MSG);
 		return null;
 	}
 
 	@Override
-	public Parameter makeParameter(Method parent, EParamType direction,
+	public Parameter handleParameter(Method parent, EParamType direction,
 			FArgument src) {
 		jlog.log(Level.FINE, DUMMY_TRACE_MSG);
 		return null;
 	}
 
 	@Override
-	public Element makeStructure(ElementContainer<?> parent, FStructType src) {
+	public Element handleStructure(ElementContainer<?> parent, FStructType src) {
 		jlog.log(Level.FINE, DUMMY_TRACE_MSG);
 		return null;
 	}
 
 	@Override
-	public Attribute makeField(Element parent, FField src) {
+	public Attribute handleField(Element parent, FField src) {
 		jlog.log(Level.FINE, DUMMY_TRACE_MSG);
 		return null;
 	}
 
 	@Override
-	public Element makeEnumeration(ElementContainer<?> parent, FEnumerationType src) {
+	public Element handleEnumeration(ElementContainer<?> parent, FEnumerationType src) {
 		jlog.log(Level.FINE, DUMMY_TRACE_MSG);
 		return null;
 	}
 
 	@Override
-	public Attribute makeEnumerator(Element parent, FEnumerator src) {
+	public Attribute handleEnumerator(Element parent, FEnumerator src) {
 		jlog.log(Level.FINE, DUMMY_TRACE_MSG);
 		return null;
 	}
 
 	@Override
-	public Element makeTypedef(ElementContainer<?> parent, FTypeDef src) {
+	public Element handleTypedef(ElementContainer<?> parent, FTypeDef src) {
 		jlog.log(Level.FINE, DUMMY_TRACE_MSG);
 		return null;
 	}
 
 	@Override
-	public Element makeArray(ElementContainer<?> parent, FArrayType src) {
+	public Element handleArray(ElementContainer<?> parent, FArrayType src) {
 		jlog.log(Level.FINE, DUMMY_TRACE_MSG);
 		return null;
 	}
 
 	@Override
-	public Element makeUnion(ElementContainer<?> parent, FUnionType src) {
+	public Element handleUnion(ElementContainer<?> parent, FUnionType src) {
 		jlog.log(Level.FINE, DUMMY_TRACE_MSG);
 		return null;
 	}
 
 	@Override
-	public Element makeMap(ElementContainer<?> parent, FMapType src) {
+	public Element handleMap(ElementContainer<?> parent, FMapType src) {
 		jlog.log(Level.FINE, DUMMY_TRACE_MSG);
 		return null;
 	}
 
 	@Override
-	public Attribute makeMapKey(Element parent, FTypeRef src) {
+	public Attribute handleMapKey(Element parent, FTypeRef src) {
 		jlog.log(Level.FINE, DUMMY_TRACE_MSG);
 		return null;
 	}
 
 	@Override
-	public Attribute makeMapValue(Element parent, FTypeRef src) {
+	public Attribute handleMapValue(Element parent, FTypeRef src) {
 		jlog.log(Level.FINE, DUMMY_TRACE_MSG);
 		return null;
 	}
 
 	@Override
-	public Attribute makeAttribute(Element parent, FAttribute src) {
+	public Attribute handleAttribute(Element parent, FAttribute src) {
 		jlog.log(Level.FINE, DUMMY_TRACE_MSG);
 		return null;
 	}
 
 	@Override
-	public Package makePackage(Package parent, FTypeCollection src) {
+	public Package handleTypeCollection(Package parent, FTypeCollection src) {
 		jlog.log(Level.FINE, DUMMY_TRACE_MSG);
 		return null;
 	}
 
 	@Override
-	public Parameter makeParameter(Method parent, EParamType direction,
+	public Parameter handleParameter(Method parent, EParamType direction,
 			FEnumerationType src) {
 		jlog.log(Level.FINE, DUMMY_TRACE_MSG);
 		return null;
 	}
 
 	@Override
-	public Parameter makeParameter(Method parent, EParamType direction,
+	public Parameter handleParameter(Method parent, EParamType direction,
 			FEnumerator src) {
 		jlog.log(Level.FINE, DUMMY_TRACE_MSG);
 		return null;

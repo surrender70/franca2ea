@@ -41,9 +41,9 @@ public class AutoResolver extends ImportProcessorDecorator {
 
 	
 	@Override
-	public Element makeStructure(ElementContainer<?> parent, FStructType src) {
+	public Element handleStructure(ElementContainer<?> parent, FStructType src) {
 
-		Element s = processor.makeStructure(parent, src);
+		Element s = processor.handleStructure(parent, src);
 		
 		if(s != null) {
 			return s;
@@ -96,9 +96,9 @@ public class AutoResolver extends ImportProcessorDecorator {
 	}
 
 	@Override
-	public Element makeEnumeration(ElementContainer<?> parent, FEnumerationType src) {
+	public Element handleEnumeration(ElementContainer<?> parent, FEnumerationType src) {
 
-		Element enumeration = processor.makeEnumeration(parent, src);
+		Element enumeration = processor.handleEnumeration(parent, src);
 		
 		if(enumeration != null) {
 			return enumeration;
@@ -146,9 +146,9 @@ public class AutoResolver extends ImportProcessorDecorator {
 	}
 
 	@Override
-	public Attribute makeField(Element parent, FField src) {
+	public Attribute handleField(Element parent, FField src) {
 		
-		Attribute a = processor.makeField(parent, src);
+		Attribute a = processor.handleField(parent, src);
 
 		if(a != null) {
 			if(!a.GetType().equals(getTypeName(src.getType()))) {

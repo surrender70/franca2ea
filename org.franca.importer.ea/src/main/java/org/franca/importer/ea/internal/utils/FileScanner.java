@@ -31,7 +31,6 @@ public class FileScanner {
 		List<String> fileNames = new Vector<String>();
 		
 		File root = new File(path);
-		System.out.println(root.getAbsolutePath());
 		
 		if(!root.exists()) {
 			throw new IllegalArgumentException("Path "+path+" does not exist");

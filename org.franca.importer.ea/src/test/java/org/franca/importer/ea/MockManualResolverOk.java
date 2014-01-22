@@ -12,7 +12,7 @@ import org.franca.importer.ea.internal.utils.EAConstants.EStereoType;
 import org.sparx.Attribute;
 import org.sparx.Element;
 
-public class MockManualResolverOk implements IUserFeedbackCallback {
+public class MockManualResolverOk implements ManualResolveCallback {
 
 	@Override
 	public Element selectElement(FStructType struct, List<Element> elems) {
@@ -99,12 +99,6 @@ public class MockManualResolverOk implements IUserFeedbackCallback {
 		
 		return result;
 		
-	}
-
-	@Override
-	public int selectAttribute(String title, List<Attribute> attrs) {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 }

@@ -31,6 +31,7 @@ import org.franca.importer.ea.internal.DummyProcessor;
 import org.franca.importer.ea.internal.ElementCreator;
 import org.franca.importer.ea.internal.Franca2EA;
 import org.franca.importer.ea.internal.ImportProcessorDecorator;
+import org.franca.importer.ea.internal.ImporterFacadeImpl;
 import org.franca.importer.ea.internal.NotesUpdater;
 import org.franca.importer.ea.internal.utils.EAConstants;
 import org.franca.importer.ea.internal.utils.EARepositoryAccessor;
@@ -85,6 +86,7 @@ public class InitialImportTest {
 			@Override
 			protected void configure() { 
 				bindConstant().annotatedWith(Names.named("create")).to(true);
+				bind(ImporterFacade.class).to(ImporterFacadeImpl.class);
 			}
 			
 			@Provides
@@ -97,7 +99,7 @@ public class InitialImportTest {
 									new DummyProcessor())))) {
 					
 					@Override
-					public Element makeUnion(ElementContainer<?> parent, FUnionType src) {
+					public Element handleUnion(ElementContainer<?> parent, FUnionType src) {
 						
 						short cntBefore = parent.getAllElements().GetCount();
 						
@@ -105,7 +107,7 @@ public class InitialImportTest {
 							assertFalse(e.GetName().equals(src.getName()));
 						}
 						
-						Element result = processor.makeUnion(parent, src);
+						Element result = processor.handleUnion(parent, src);
 						
 						assertNotNull(result);
 										
@@ -118,7 +120,7 @@ public class InitialImportTest {
 						return result;
 					}
 					@Override
-					public Element makeStructure(ElementContainer<?> parent, FStructType src) {
+					public Element handleStructure(ElementContainer<?> parent, FStructType src) {
 						
 						short cntBefore = parent.getAllElements().GetCount();
 						
@@ -126,7 +128,7 @@ public class InitialImportTest {
 							assertFalse(e.GetName().equals(src.getName()));
 						}
 						
-						Element result = processor.makeStructure(parent, src);
+						Element result = processor.handleStructure(parent, src);
 						
 						assertNotNull(result);
 										
@@ -140,13 +142,13 @@ public class InitialImportTest {
 					}
 					
 					@Override
-					public Method makeSimpleMethod(Element parent, FMethod src) {
+					public Method handleSimpleMethod(Element parent, FMethod src) {
 						
 						for(Method m: parent.GetMethods()) {
 							assertFalse(m.GetName().equals(src.getName()));
 						}
 
-						Method result = processor.makeSimpleMethod(parent, src);
+						Method result = processor.handleSimpleMethod(parent, src);
 						
 						assertNotNull(result);
 						assertEquals(src.getName(), result.GetName());
@@ -158,14 +160,14 @@ public class InitialImportTest {
 					}
 					
 					@Override
-					public Parameter makeParameter(Method parent, EParamType direction,
+					public Parameter handleParameter(Method parent, EParamType direction,
 							FArgument src) {
 
 						for(Parameter p: parent.GetParameters()) {
 							assertFalse(p.GetName().equals(src.getName()));
 						}
 
-						Parameter result = processor.makeParameter(parent, direction, src);
+						Parameter result = processor.handleParameter(parent, direction, src);
 						
 						assertNotNull(result);
 						assertEquals(src.getName(), result.GetName());
@@ -179,9 +181,9 @@ public class InitialImportTest {
 					}
 					
 					@Override
-					public Package makePackage(Package parent, FModel src, String packageName) {
+					public Package handleModel(Package parent, FModel src, String packageName) {
 										
-						Package result = processor.makePackage(parent, src, packageName);
+						Package result = processor.handleModel(parent, src, packageName);
 										
 						assertNotNull(result);
 						
@@ -189,13 +191,13 @@ public class InitialImportTest {
 					}
 					
 					@Override
-					public Element makeInterface(ElementContainer<?> parent, FInterface src) {
+					public Element handleInterface(ElementContainer<?> parent, FInterface src) {
 
 						for(Element e: parent.getAllElements()) {
 							assertFalse(e.GetName().equals(src.getName()));
 						}
 
-						Element result = processor.makeInterface(parent, src);
+						Element result = processor.handleInterface(parent, src);
 						
 						assertNotNull(result);
 						assertEquals(src.getName(), result.GetName());
@@ -215,13 +217,13 @@ public class InitialImportTest {
 					}
 					
 					@Override
-					public Attribute makeField(Element parent, FField src) {
+					public Attribute handleField(Element parent, FField src) {
 
 						for(Element e: parent.GetElements()) {
 							assertFalse(e.GetName().equals(src.getName()));
 						}
 
-						Attribute result = processor.makeField(parent, src);
+						Attribute result = processor.handleField(parent, src);
 						
 						if(src.getType().getDerived() != null) {
 							assertFalse(0 == result.GetClassifierID());
@@ -243,13 +245,13 @@ public class InitialImportTest {
 					}
 					
 					@Override
-					public Attribute makeEnumerator(Element parent, FEnumerator src) {
+					public Attribute handleEnumerator(Element parent, FEnumerator src) {
 
 						for(Element e: parent.GetElements()) {
 							assertFalse(e.GetName().equals(src.getName()));
 						}
 
-						Attribute result = processor.makeEnumerator(parent, src);
+						Attribute result = processor.handleEnumerator(parent, src);
 
 						assertNotNull(result);
 						assertEquals(src.getName(), result.GetName());
@@ -270,13 +272,13 @@ public class InitialImportTest {
 					}
 					
 					@Override
-					public Element makeEnumeration(ElementContainer<?> parent, FEnumerationType src) {
+					public Element handleEnumeration(ElementContainer<?> parent, FEnumerationType src) {
 
 						for(Element e: parent.getAllElements()) {
 							assertFalse(e.GetName().equals(src.getName()));
 						}
 
-						Element result = processor.makeEnumeration(parent, src);
+						Element result = processor.handleEnumeration(parent, src);
 										
 						assertNotNull(result);
 						assertEquals(src.getName(), result.GetName());
@@ -287,13 +289,13 @@ public class InitialImportTest {
 					}
 					
 					@Override
-					public Method makeBroadcastMethod(Element parent, FBroadcast src) {
+					public Method handleBroadcastMethod(Element parent, FBroadcast src) {
 						
 						for(Method m: parent.GetMethods()) {
 							assertFalse(m.GetName().equals(src.getName()));
 						}
 						
-						Method result = processor.makeBroadcastMethod(parent, src);
+						Method result = processor.handleBroadcastMethod(parent, src);
 										
 						assertNotNull(result);
 						assertEquals(src.getName(), result.GetName());
@@ -305,13 +307,13 @@ public class InitialImportTest {
 					}
 
 					@Override
-					public Element makeTypedef(ElementContainer<?> parent, FTypeDef src) {
+					public Element handleTypedef(ElementContainer<?> parent, FTypeDef src) {
 						
 						for(Element e: parent.getAllElements()) {
 							assertFalse(e.GetName().equals(src.getName()));
 						}
 						
-						Element result = processor.makeTypedef(parent, src);
+						Element result = processor.handleTypedef(parent, src);
 						
 						assertNotNull(result);
 
@@ -324,13 +326,13 @@ public class InitialImportTest {
 					}
 
 					@Override
-					public Element makeArray(ElementContainer<?> parent, FArrayType src) {
+					public Element handleArray(ElementContainer<?> parent, FArrayType src) {
 						
 						for(Element e: parent.getAllElements()) {
 							assertFalse(e.GetName().equals(src.getName()));
 						}
 						
-						Element result = processor.makeArray(parent, src);
+						Element result = processor.handleArray(parent, src);
 						
 						assertNotNull(result);
 						
@@ -343,7 +345,7 @@ public class InitialImportTest {
 					}
 					
 					@Override
-					public Element makeMap(ElementContainer<?> parent, FMapType src) {
+					public Element handleMap(ElementContainer<?> parent, FMapType src) {
 						
 						short cntBefore = parent.getAllElements().GetCount();
 						
@@ -351,7 +353,7 @@ public class InitialImportTest {
 							assertFalse(e.GetName().equals(src.getName()));
 						}
 						
-						Element result = processor.makeMap(parent, src);
+						Element result = processor.handleMap(parent, src);
 						
 						assertNotNull(result);
 										
@@ -365,9 +367,9 @@ public class InitialImportTest {
 					}
 					
 					@Override
-					public Attribute makeMapKey(Element parent, FTypeRef src) {
+					public Attribute handleMapKey(Element parent, FTypeRef src) {
 						
-						Attribute result = processor.makeMapKey(parent, src);
+						Attribute result = processor.handleMapKey(parent, src);
 						
 						assertNotNull(result);
 						assertEquals(getTypeName(src), result.GetType());
@@ -376,9 +378,9 @@ public class InitialImportTest {
 					}
 					
 					@Override
-					public Attribute makeMapValue(Element parent, FTypeRef src) {
+					public Attribute handleMapValue(Element parent, FTypeRef src) {
 						
-						Attribute result = processor.makeMapValue(parent, src);
+						Attribute result = processor.handleMapValue(parent, src);
 						
 						assertNotNull(result);
 						assertEquals(getTypeName(src), result.GetType());				
@@ -387,7 +389,7 @@ public class InitialImportTest {
 					}
 					
 					@Override
-					public Attribute makeAttribute(Element parent, FAttribute src) {
+					public Attribute handleAttribute(Element parent, FAttribute src) {
 						
 						for(Attribute a: parent.GetAttributes()) {
 							assertFalse(a.GetName().equals(src.getName()));
@@ -395,7 +397,7 @@ public class InitialImportTest {
 
 						short cntBefore = parent.GetAttributes().GetCount();
 						
-						Attribute result = processor.makeAttribute(parent, src);
+						Attribute result = processor.handleAttribute(parent, src);
 						
 						assertNotNull(result);
 						assertEquals(src.getName(), result.GetName());

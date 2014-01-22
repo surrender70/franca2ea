@@ -62,13 +62,13 @@ public class ElementCreator extends ImportProcessorDecorator {
 	}
 	
 	@Override
-	public Package makePackage(Package parent, FModel src,
+	public Package handleModel(Package parent, FModel src,
 			String packageName) {
 		
-		Package p = processor.makePackage(parent, src, packageName);
+		Package p = processor.handleModel(parent, src, packageName);
 		
 		if(p == null) {		
-			jlog.log(Level.INFO, "Create Package "+src.getName());			
+			jlog.log(Level.INFO, "Create Package for Franca Model "+src.getName());			
 			p = parent.GetPackages().AddNew(packageName, EClassType.PACKAGE.getName());					
 			p.Update();
 		}
@@ -77,12 +77,12 @@ public class ElementCreator extends ImportProcessorDecorator {
 	}
 
 	@Override
-	public Package makePackage(Package parent, FTypeCollection src) {
+	public Package handleTypeCollection(Package parent, FTypeCollection src) {
 		
-		Package p = processor.makePackage(parent, src);
+		Package p = processor.handleTypeCollection(parent, src);
 		
 		if(p == null) {		
-			jlog.log(Level.INFO, "Create Package "+src.getName());			
+			jlog.log(Level.INFO, "Create Package for TypeCollection "+src.getName());			
 			p = parent.GetPackages().AddNew(src.getName(), EClassType.PACKAGE.getName());					
 			if(src.getVersion() != null) {
 				p.SetVersion(src.getVersion().getMajor()+"."+src.getVersion().getMinor());
@@ -98,9 +98,9 @@ public class ElementCreator extends ImportProcessorDecorator {
 	}
 	
 	@Override
-	public Element makeInterface(ElementContainer<?> parent, FInterface src) {
+	public Element handleInterface(ElementContainer<?> parent, FInterface src) {
 
-		Element e = processor.makeInterface(parent, src);
+		Element e = processor.handleInterface(parent, src);
 		
 		if(e == null) {		
 			jlog.log(Level.INFO, "Create Interface "+src.getName());			
@@ -118,9 +118,9 @@ public class ElementCreator extends ImportProcessorDecorator {
 	}
 
 	@Override
-	public Method makeSimpleMethod(Element parent, FMethod src) {
+	public Method handleSimpleMethod(Element parent, FMethod src) {
 
-		Method m = processor.makeSimpleMethod(parent, src);
+		Method m = processor.handleSimpleMethod(parent, src);
 		
 		if(m == null) {		
 			jlog.log(Level.INFO, "Create Method "+src.getName());
@@ -136,9 +136,9 @@ public class ElementCreator extends ImportProcessorDecorator {
 	}
 
 	@Override
-	public Method makeBroadcastMethod(Element parent, FBroadcast src) {
+	public Method handleBroadcastMethod(Element parent, FBroadcast src) {
 
-		Method m = processor.makeBroadcastMethod(parent, src);
+		Method m = processor.handleBroadcastMethod(parent, src);
 		
 		if(m == null) {
 			jlog.log(Level.INFO, "Create Broadcast "+src.getName());
@@ -154,10 +154,10 @@ public class ElementCreator extends ImportProcessorDecorator {
 	}
 
 	@Override
-	public Parameter makeParameter(Method parent, EParamType direction,
+	public Parameter handleParameter(Method parent, EParamType direction,
 			FArgument src) {
 
-		Parameter p = processor.makeParameter(parent, direction, src);
+		Parameter p = processor.handleParameter(parent, direction, src);
 		
 		if(p == null) {
 			jlog.log(Level.INFO, "Create Parameter "+src.getName());
@@ -179,10 +179,10 @@ public class ElementCreator extends ImportProcessorDecorator {
 	}
 
 	@Override
-	public Parameter makeParameter(Method parent, EParamType direction,
+	public Parameter handleParameter(Method parent, EParamType direction,
 			FEnumerationType src) {
 		
-		Parameter p = processor.makeParameter(parent, direction, src);
+		Parameter p = processor.handleParameter(parent, direction, src);
 		
 		if(p == null) {
 			jlog.log(Level.INFO, "Create Error Parameter "+src.getName());
@@ -221,9 +221,9 @@ public class ElementCreator extends ImportProcessorDecorator {
 	}	
 	
 	@Override
-	public Parameter makeParameter(Method parent, EParamType direction, FEnumerator src) {
+	public Parameter handleParameter(Method parent, EParamType direction, FEnumerator src) {
 		
-		Parameter p = processor.makeParameter(parent, direction, src);
+		Parameter p = processor.handleParameter(parent, direction, src);
 		
 		if(p == null) {
 			jlog.log(Level.INFO, "Create Error Parameter "+src.getName());
@@ -246,9 +246,9 @@ public class ElementCreator extends ImportProcessorDecorator {
 	}	
 	
 	@Override
-	public Element makeStructure(ElementContainer<?> parent, FStructType src) {
+	public Element handleStructure(ElementContainer<?> parent, FStructType src) {
 		
-		Element structure = processor.makeStructure(parent, src);
+		Element structure = processor.handleStructure(parent, src);
 		
 		if(structure == null) {
 			structure = parent.makeElement(src.getName(), EStereoType.STRUCTURE, EClassType.CLASS, "");
@@ -259,9 +259,9 @@ public class ElementCreator extends ImportProcessorDecorator {
 	}
 
 	@Override
-	public Element makeUnion(ElementContainer<?> parent, FUnionType src) {
+	public Element handleUnion(ElementContainer<?> parent, FUnionType src) {
 		
-		Element union = processor.makeUnion(parent, src);
+		Element union = processor.handleUnion(parent, src);
 		
 		if(union == null) {
 			union = parent.makeElement(src.getName(), EStereoType.UNION, EClassType.CLASS, "");
@@ -272,9 +272,9 @@ public class ElementCreator extends ImportProcessorDecorator {
 	}
 	
 	@Override
-	public Element makeEnumeration(ElementContainer<?> parent, FEnumerationType src) {
+	public Element handleEnumeration(ElementContainer<?> parent, FEnumerationType src) {
 		
-		Element e = processor.makeEnumeration(parent, src);
+		Element e = processor.handleEnumeration(parent, src);
 		
 		if(e == null) {
 			jlog.log(Level.INFO, "Create Enumeration "+src.getName());				
@@ -285,9 +285,9 @@ public class ElementCreator extends ImportProcessorDecorator {
 	}
 
 	@Override
-	public Attribute makeField(Element parent, FField src) {
+	public Attribute handleField(Element parent, FField src) {
 		
-		Attribute attr = processor.makeField(parent, src);
+		Attribute attr = processor.handleField(parent, src);
 		
 		if(attr == null) {
 			jlog.log(Level.INFO, "Create Field "+src.getName());		
@@ -317,9 +317,9 @@ public class ElementCreator extends ImportProcessorDecorator {
 	}
 
 	@Override
-	public Attribute makeEnumerator(Element parent, FEnumerator src) {
+	public Attribute handleEnumerator(Element parent, FEnumerator src) {
 
-		Attribute attr = processor.makeEnumerator(parent, src);
+		Attribute attr = processor.handleEnumerator(parent, src);
 		
 		if(attr == null) {
 			jlog.log(Level.INFO, "Create Enumerator "+src.getName());
@@ -340,9 +340,9 @@ public class ElementCreator extends ImportProcessorDecorator {
 	}
 
 	@Override
-	public Element makeTypedef(ElementContainer<?> parent, FTypeDef src) {
+	public Element handleTypedef(ElementContainer<?> parent, FTypeDef src) {
 		
-		Element e = processor.makeTypedef(parent, src);
+		Element e = processor.handleTypedef(parent, src);
 		
 		if(e == null) {
 			jlog.log(Level.INFO, "Create Typedef "+src.getName());
@@ -355,9 +355,9 @@ public class ElementCreator extends ImportProcessorDecorator {
 	}
 
 	@Override
-	public Element makeArray(ElementContainer<?> parent, FArrayType src) {
+	public Element handleArray(ElementContainer<?> parent, FArrayType src) {
 
-		Element e = processor.makeArray(parent, src);
+		Element e = processor.handleArray(parent, src);
 		
 		if(e == null) {
 			
@@ -374,9 +374,9 @@ public class ElementCreator extends ImportProcessorDecorator {
 	}
 
 	@Override
-	public Element makeMap(ElementContainer<?> parent, FMapType src) {
+	public Element handleMap(ElementContainer<?> parent, FMapType src) {
 		
-		Element map = processor.makeMap(parent, src);
+		Element map = processor.handleMap(parent, src);
 		
 		if(map == null) {
 			map = parent.makeElement(src.getName(), EStereoType.MAP, EClassType.CLASS, "");
@@ -387,9 +387,9 @@ public class ElementCreator extends ImportProcessorDecorator {
 	}
 
 	@Override
-	public Attribute makeMapKey(Element parent, FTypeRef src) {
+	public Attribute handleMapKey(Element parent, FTypeRef src) {
 
-		Attribute attr = processor.makeMapKey(parent, src);
+		Attribute attr = processor.handleMapKey(parent, src);
 
 		if(attr == null) {
 			jlog.log(Level.INFO, "Create Map Key "+getTypeName(src));		
@@ -408,9 +408,9 @@ public class ElementCreator extends ImportProcessorDecorator {
 	}
 
 	@Override
-	public Attribute makeMapValue(Element parent, FTypeRef src) {
+	public Attribute handleMapValue(Element parent, FTypeRef src) {
 
-		Attribute attr = processor.makeMapValue(parent, src);
+		Attribute attr = processor.handleMapValue(parent, src);
 
 		if(attr == null) {
 			jlog.log(Level.INFO, "Create Map Value "+getTypeName(src));		
@@ -429,9 +429,9 @@ public class ElementCreator extends ImportProcessorDecorator {
 	}
 
 	@Override
-	public Attribute makeAttribute(Element parent, FAttribute src) {
+	public Attribute handleAttribute(Element parent, FAttribute src) {
 
-		Attribute attr = processor.makeAttribute(parent, src);
+		Attribute attr = processor.handleAttribute(parent, src);
 		
 		if(attr == null) {
 			

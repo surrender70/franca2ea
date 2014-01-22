@@ -62,7 +62,7 @@ public class Franca2EA {
 		String containerName = src.eResource().getURI().lastSegment().split("\\.")[0];
 		
 		Package p = processor
-				.makePackage(parent, src, containerName);
+				.handleModel(parent, src, containerName);
 		parentIsPackage.setContainer(p);
 		
 		// TODO
@@ -157,7 +157,7 @@ public class Franca2EA {
 		
 		for(FTypeCollection typeCollection: src.getTypeCollections()) {
 						
-			Package typeCollectionPackage = processor.makePackage(p, typeCollection);
+			Package typeCollectionPackage = processor.handleTypeCollection(p, typeCollection);
 			
 			parentIsPackage.setContainer(typeCollectionPackage);
 			
@@ -208,18 +208,18 @@ public class Franca2EA {
 
 	private Element transformMap(ElementContainer<?> parent, FMapType type) {
 
-		Element map = processor.makeMap(parent, type);
+		Element map = processor.handleMap(parent, type);
 		
-		processor.makeMapKey(map, type.getKeyType());
+		processor.handleMapKey(map, type.getKeyType());
 		
-		processor.makeMapValue(map, type.getValueType());
+		processor.handleMapValue(map, type.getValueType());
 		
 		return map;		
 	}
 
 	private Element transformInterface(ElementContainer<?> parent, FInterface src) {
 
-		Element p = processor.makeInterface(parent, src);
+		Element p = processor.handleInterface(parent, src);
 		parentIsElement.setContainer(p);
 		
 		if(src.getTypes().size() > 0) {
@@ -257,14 +257,14 @@ public class Franca2EA {
 
 	private Attribute transformAttribute(Element parent, FAttribute src) {
 		
-		Attribute a = processor.makeAttribute(parent, src);
+		Attribute a = processor.handleAttribute(parent, src);
 		
 		return a;
 	}
 	
 	private Method transformMethod(Element parent, FMethod src) {
 
-		Method m = processor.makeSimpleMethod(parent, src);
+		Method m = processor.handleSimpleMethod(parent, src);
 		
 		for (FArgument in : src.getInArgs()) {
 			transformParameter(m, EParamType.IN, in);
@@ -275,13 +275,13 @@ public class Franca2EA {
 		}
 				
 		if(src.getErrorEnum() != null) {
-			processor.makeParameter(m, EParamType.OUT, src.getErrorEnum());			
+			processor.handleParameter(m, EParamType.OUT, src.getErrorEnum());			
 		}
 		
 		else if(src.getErrors() != null) {
-			processor.makeParameter(m, EParamType.OUT, src.getErrors());			
+			processor.handleParameter(m, EParamType.OUT, src.getErrors());			
 			for(FEnumerator e: src.getErrors().getEnumerators()) {
-				processor.makeParameter(m, EParamType.OUT, e);
+				processor.handleParameter(m, EParamType.OUT, e);
 			}			
 		}
 				
@@ -290,7 +290,7 @@ public class Franca2EA {
 
 	private Method transformMethod(Element parent, FBroadcast src) {
 
-		Method m = processor.makeBroadcastMethod(parent, src);
+		Method m = processor.handleBroadcastMethod(parent, src);
 
 		for (FArgument out : src.getOutArgs()) {
 			transformParameter(m, EParamType.OUT, out);
@@ -303,7 +303,7 @@ public class Franca2EA {
 	private Parameter transformParameter(Method parent, EParamType direction,
 			FArgument src) {
 
-		Parameter p = processor.makeParameter(parent, direction, src);
+		Parameter p = processor.handleParameter(parent, direction, src);
 
 		return p;
 
@@ -311,17 +311,17 @@ public class Franca2EA {
 
 	private Element transformTypedef(ElementContainer<?> parent, FTypeDef src) {
 		
-		return processor.makeTypedef(parent, src);		
+		return processor.handleTypedef(parent, src);		
 	}
 
 	private Element transformArray(ElementContainer<?> parent, FArrayType src) {
 		
-		return processor.makeArray(parent, src);		
+		return processor.handleArray(parent, src);		
 	}
 
 	private Element transformStructure(ElementContainer<?> parent, FStructType src) {
 
-		Element e = processor.makeStructure(parent, src);
+		Element e = processor.handleStructure(parent, src);
 
 		for (FField field : src.getElements()) {
 			transformField(e, field);
@@ -332,7 +332,7 @@ public class Franca2EA {
 
 	private Element transformUnion(ElementContainer<?> parent, FUnionType src) {
 
-		Element e = processor.makeUnion(parent, src);
+		Element e = processor.handleUnion(parent, src);
 
 		for (FField field : src.getElements()) {
 			transformField(e, field);
@@ -356,13 +356,13 @@ public class Franca2EA {
 			}
 		}
 		
-		return processor.makeField(parent, src);
+		return processor.handleField(parent, src);
 
 	}
 
 	private Element transformEnumeration(ElementContainer<?> parent, FEnumerationType src) {
 
-		Element e = processor.makeEnumeration(parent, src);
+		Element e = processor.handleEnumeration(parent, src);
 
 		for (FEnumerator eLiteral : src.getEnumerators()) {
 			transformEnumerator(e, eLiteral);
@@ -373,7 +373,7 @@ public class Franca2EA {
 
 	private Attribute transformEnumerator(Element parent, FEnumerator src) {
 
-		return processor.makeEnumerator(parent, src);
+		return processor.handleEnumerator(parent, src);
 
 	}
 

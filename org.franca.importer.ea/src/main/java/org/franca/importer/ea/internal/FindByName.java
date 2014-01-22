@@ -35,7 +35,7 @@ public class FindByName extends ImportProcessorDecorator {
 	private static Logger jlog =  Logger.getLogger(FindByName.class.getName());
 	
 	@Override
-	public Package makePackage(Package parent, FModel src,
+	public Package handleModel(Package parent, FModel src,
 			String packageName) {
 		
 		jlog.log(Level.FINE, "Retrieve Package "+src.getName());		
@@ -46,7 +46,7 @@ public class FindByName extends ImportProcessorDecorator {
 	
 	
 	@Override
-	public Package makePackage(Package parent, FTypeCollection src) {
+	public Package handleTypeCollection(Package parent, FTypeCollection src) {
 
 		jlog.log(Level.FINE, "Retrieve Package "+src.getName());		
 
@@ -61,7 +61,7 @@ public class FindByName extends ImportProcessorDecorator {
 	}
 	
 	@Override
-	public Element makeInterface(ElementContainer<?> parent, FInterface src) {
+	public Element handleInterface(ElementContainer<?> parent, FInterface src) {
 
 		jlog.log(Level.FINE, "Retrieve Interface "+src.getName());		
 
@@ -70,7 +70,7 @@ public class FindByName extends ImportProcessorDecorator {
 	}
 
 	@Override
-	public Method makeSimpleMethod(Element parent, FMethod src) {
+	public Method handleSimpleMethod(Element parent, FMethod src) {
 				
 		jlog.log(Level.FINE, "Retrieve Method "+src.getName());		
 
@@ -79,7 +79,7 @@ public class FindByName extends ImportProcessorDecorator {
 	}
 
 	@Override
-	public Method makeBroadcastMethod(Element parent, FBroadcast src) {
+	public Method handleBroadcastMethod(Element parent, FBroadcast src) {
 		
 		jlog.log(Level.FINE, "Retrieve Broadcast "+src.getName());		
 
@@ -88,7 +88,7 @@ public class FindByName extends ImportProcessorDecorator {
 	}
 
 	@Override
-	public Parameter makeParameter(Method parent, EParamType direction,
+	public Parameter handleParameter(Method parent, EParamType direction,
 			FArgument src) {
 
 		jlog.log(Level.FINE, "Retrieve Parameter "+src.getName());		
@@ -97,7 +97,7 @@ public class FindByName extends ImportProcessorDecorator {
 	}
 
 	@Override
-	public Element makeStructure(ElementContainer<?> parent, FStructType src) {
+	public Element handleStructure(ElementContainer<?> parent, FStructType src) {
 
 		jlog.log(Level.FINE, "Retrieve Structure "+src.getName());		
 
@@ -106,7 +106,7 @@ public class FindByName extends ImportProcessorDecorator {
 	}
 
 	@Override
-	public Element makeUnion(ElementContainer<?> parent, FUnionType src) {
+	public Element handleUnion(ElementContainer<?> parent, FUnionType src) {
 
 		jlog.log(Level.FINE, "Retrieve Union "+src.getName());		
 
@@ -116,7 +116,7 @@ public class FindByName extends ImportProcessorDecorator {
 	
 	
 	@Override
-	public Element makeEnumeration(ElementContainer<?> parent, FEnumerationType src) {
+	public Element handleEnumeration(ElementContainer<?> parent, FEnumerationType src) {
 
 		jlog.log(Level.FINE, "Retrieve Enumeration "+src.getName());		
 
@@ -195,7 +195,7 @@ public class FindByName extends ImportProcessorDecorator {
 	
 	
 	@Override
-	public Attribute makeField(Element parent, FField src) {
+	public Attribute handleField(Element parent, FField src) {
 		
 		jlog.log(Level.FINE, "Retrieve Field "+src.getName());		
 
@@ -205,7 +205,7 @@ public class FindByName extends ImportProcessorDecorator {
 
 
 	@Override
-	public Attribute makeEnumerator(Element parent, FEnumerator src) {
+	public Attribute handleEnumerator(Element parent, FEnumerator src) {
 
 		jlog.log(Level.FINE, "Retrieve Enumerator "+src.getName());		
 
@@ -215,7 +215,7 @@ public class FindByName extends ImportProcessorDecorator {
 
 
 	@Override
-	public Element makeTypedef(ElementContainer<?> parent, FTypeDef src) {
+	public Element handleTypedef(ElementContainer<?> parent, FTypeDef src) {
 		
 		jlog.log(Level.FINE, "Retrieve Typedef "+src.getName());
 		
@@ -225,7 +225,7 @@ public class FindByName extends ImportProcessorDecorator {
 
 
 	@Override
-	public Element makeArray(ElementContainer<?> parent, FArrayType src) {
+	public Element handleArray(ElementContainer<?> parent, FArrayType src) {
 		
 		jlog.log(Level.FINE, "Retrieve Array "+src.getName());
 		
@@ -235,7 +235,7 @@ public class FindByName extends ImportProcessorDecorator {
 
 
 	@Override
-	public Element makeMap(ElementContainer<?> parent, FMapType src) {
+	public Element handleMap(ElementContainer<?> parent, FMapType src) {
 		
 		jlog.log(Level.FINE, "Retrieve Map "+src.getName());		
 
@@ -245,7 +245,7 @@ public class FindByName extends ImportProcessorDecorator {
 
 
 	@Override
-	public Attribute makeMapKey(Element parent, FTypeRef src) {
+	public Attribute handleMapKey(Element parent, FTypeRef src) {
 		
 		jlog.log(Level.FINE, "Retrieve Map Key ");		
 
@@ -255,7 +255,7 @@ public class FindByName extends ImportProcessorDecorator {
 
 
 	@Override
-	public Attribute makeMapValue(Element parent, FTypeRef src) {
+	public Attribute handleMapValue(Element parent, FTypeRef src) {
 		
 		jlog.log(Level.FINE, "Retrieve Map Value ");		
 
@@ -265,7 +265,7 @@ public class FindByName extends ImportProcessorDecorator {
 
 
 	@Override
-	public Attribute makeAttribute(Element parent, FAttribute src) {
+	public Attribute handleAttribute(Element parent, FAttribute src) {
 
 		jlog.log(Level.FINE, "Retrieve Attribute "+src.getName());		
 
@@ -275,7 +275,7 @@ public class FindByName extends ImportProcessorDecorator {
 
 
 	@Override
-	public Parameter makeParameter(Method parent, EParamType direction,
+	public Parameter handleParameter(Method parent, EParamType direction,
 			FEnumerationType src) {
 		
 		jlog.log(Level.SEVERE, "NOT YET IMPLEMENTED");
@@ -285,7 +285,7 @@ public class FindByName extends ImportProcessorDecorator {
 
 
 	@Override
-	public Parameter makeParameter(Method parent, EParamType direction,
+	public Parameter handleParameter(Method parent, EParamType direction,
 			FEnumerator src) {
 		
 		jlog.log(Level.SEVERE, "NOT YET IMPLEMENTED");

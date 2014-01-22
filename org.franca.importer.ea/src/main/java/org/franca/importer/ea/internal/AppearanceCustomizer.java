@@ -34,9 +34,9 @@ public class AppearanceCustomizer extends ImportProcessorDecorator {
 	}
 	
 	@Override
-	public Element makeStructure(ElementContainer<?> parent, FStructType src) {
+	public Element handleStructure(ElementContainer<?> parent, FStructType src) {
 		
-		Element e = processor.makeStructure(parent, src);
+		Element e = processor.handleStructure(parent, src);
 		
 		if(e != null) {
 			e.SetAppearance(1, 0, colorStruct);
@@ -47,9 +47,9 @@ public class AppearanceCustomizer extends ImportProcessorDecorator {
 	}
 
 	@Override
-	public Element makeUnion(ElementContainer<?> parent, FUnionType src) {
+	public Element handleUnion(ElementContainer<?> parent, FUnionType src) {
 		
-		Element e = processor.makeUnion(parent, src);
+		Element e = processor.handleUnion(parent, src);
 		
 		if(e != null) {
 			e.SetAppearance(1, 0, colorUnion);
@@ -61,9 +61,9 @@ public class AppearanceCustomizer extends ImportProcessorDecorator {
 	
 	
 	@Override
-	public Element makeEnumeration(ElementContainer<?> parent, FEnumerationType src) {
+	public Element handleEnumeration(ElementContainer<?> parent, FEnumerationType src) {
 		
-		Element e = processor.makeEnumeration(parent, src);
+		Element e = processor.handleEnumeration(parent, src);
 		
 		if(e != null) {
 			e.SetAppearance(1, 0, colorEnum);
@@ -74,9 +74,9 @@ public class AppearanceCustomizer extends ImportProcessorDecorator {
 	}
 
 	@Override
-	public Element makeTypedef(ElementContainer<?> parent, FTypeDef src) {
+	public Element handleTypedef(ElementContainer<?> parent, FTypeDef src) {
 		
-		Element e = processor.makeTypedef(parent, src);
+		Element e = processor.handleTypedef(parent, src);
 		
 		if(e != null) {
 			e.SetAppearance(1, 0, colorTypdef);
@@ -87,9 +87,9 @@ public class AppearanceCustomizer extends ImportProcessorDecorator {
 	}
 
 	@Override
-	public Element makeArray(ElementContainer<?> parent, FArrayType src) {
+	public Element handleArray(ElementContainer<?> parent, FArrayType src) {
 		
-		Element e = processor.makeArray(parent, src);
+		Element e = processor.handleArray(parent, src);
 		
 		if(e != null) {
 			e.SetAppearance(1, 0, colorArray);
@@ -100,9 +100,9 @@ public class AppearanceCustomizer extends ImportProcessorDecorator {
 	}
 
 	@Override
-	public Element makeMap(ElementContainer<?> parent, FMapType src) {
+	public Element handleMap(ElementContainer<?> parent, FMapType src) {
 		
-		Element e = processor.makeMap(parent, src);
+		Element e = processor.handleMap(parent, src);
 		
 		if(e != null) {
 			e.SetAppearance(1, 0, colorMap);

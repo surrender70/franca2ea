@@ -10,7 +10,7 @@ import org.franca.core.franca.FEnumerationType;
 import org.franca.core.franca.FStructType;
 import org.franca.core.franca.FTypeDef;
 import org.franca.core.franca.FUnionType;
-import org.franca.importer.ea.IUserFeedbackCallback;
+import org.franca.importer.ea.ManualResolveCallback;
 import org.franca.importer.ea.ImportProcessor;
 import org.franca.importer.ea.internal.utils.EAConstants;
 import org.franca.importer.ea.internal.utils.ElementContainer;
@@ -23,7 +23,7 @@ public class ManualResolver extends ImportProcessorDecorator {
 	private static Logger jlog =  Logger.getLogger(ManualResolver.class.getName());
 
 	@Inject
-	private IUserFeedbackCallback callback = null;
+	private ManualResolveCallback callback = null;
 	
 	public ManualResolver(ImportProcessor lProcessor) {
 		super(lProcessor);
@@ -31,9 +31,9 @@ public class ManualResolver extends ImportProcessorDecorator {
 
 	
 	@Override
-	public Element makeUnion(ElementContainer<?> parent, FUnionType src) {
+	public Element handleUnion(ElementContainer<?> parent, FUnionType src) {
 		
-		Element u = processor.makeUnion(parent, src);
+		Element u = processor.handleUnion(parent, src);
 		List<Element> availableElements = new ArrayList<Element>();		
 		
 		if(u == null) {
@@ -60,9 +60,9 @@ public class ManualResolver extends ImportProcessorDecorator {
 
 
 	@Override
-	public Element makeStructure(ElementContainer<?> parent, FStructType src) {
+	public Element handleStructure(ElementContainer<?> parent, FStructType src) {
 		
-		Element s = processor.makeStructure(parent, src);
+		Element s = processor.handleStructure(parent, src);
 		List<Element> availableElements = new ArrayList<Element>();		
 		
 		if(s == null) {
@@ -88,9 +88,9 @@ public class ManualResolver extends ImportProcessorDecorator {
 	}
 
 	@Override
-	public Element makeEnumeration(ElementContainer<?> parent, FEnumerationType src) {
+	public Element handleEnumeration(ElementContainer<?> parent, FEnumerationType src) {
 		
-		Element enumeration = processor.makeEnumeration(parent, src);		
+		Element enumeration = processor.handleEnumeration(parent, src);		
 		List<Element> availableElements = new ArrayList<Element>();		
 		
 		if(enumeration == null) {
@@ -117,9 +117,9 @@ public class ManualResolver extends ImportProcessorDecorator {
 	}
 
 	@Override
-	public Element makeTypedef(ElementContainer<?> parent, FTypeDef src) {
+	public Element handleTypedef(ElementContainer<?> parent, FTypeDef src) {
 		
-		Element t = processor.makeTypedef(parent, src);
+		Element t = processor.handleTypedef(parent, src);
 		List<Element> availableElements = new ArrayList<Element>();		
 		
 		if(t == null) {
@@ -146,9 +146,9 @@ public class ManualResolver extends ImportProcessorDecorator {
 	}
 
 	@Override
-	public Element makeArray(ElementContainer<?> parent, FArrayType src) {
+	public Element handleArray(ElementContainer<?> parent, FArrayType src) {
 		
-		Element a = processor.makeArray(parent, src);
+		Element a = processor.handleArray(parent, src);
 		List<Element> availableElements = new ArrayList<Element>();		
 		
 		if(a == null) {

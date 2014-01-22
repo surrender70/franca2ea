@@ -33,9 +33,9 @@ public class DependencyResolver extends ImportProcessorDecorator {
 	}
 
 	@Override
-	public Attribute makeField(Element parent, FField src) {
+	public Attribute handleField(Element parent, FField src) {
 		
-		Attribute field = processor.makeField(parent, src);
+		Attribute field = processor.handleField(parent, src);
 		
 		Element type = EARepositoryAccessor.INSTANCE.findElement(field.GetType());
 		
@@ -65,9 +65,9 @@ public class DependencyResolver extends ImportProcessorDecorator {
 	
 	
 	@Override
-	public Attribute makeMapKey(Element parent, FTypeRef src) {
+	public Attribute handleMapKey(Element parent, FTypeRef src) {
 		
-		Attribute mapKey = processor.makeMapKey(parent, src);
+		Attribute mapKey = processor.handleMapKey(parent, src);
 		
 		Element type = EARepositoryAccessor.INSTANCE.findElement(mapKey.GetType());
 		
@@ -87,9 +87,9 @@ public class DependencyResolver extends ImportProcessorDecorator {
 	}
 
 	@Override
-	public Attribute makeMapValue(Element parent, FTypeRef src) {
+	public Attribute handleMapValue(Element parent, FTypeRef src) {
 		
-		Attribute mapValue = processor.makeMapValue(parent, src);
+		Attribute mapValue = processor.handleMapValue(parent, src);
 		
 		Element type = EARepositoryAccessor.INSTANCE.findElement(mapValue.GetType());
 		
@@ -111,9 +111,9 @@ public class DependencyResolver extends ImportProcessorDecorator {
 	
 	
 	@Override
-	public Element makeArray(ElementContainer<?> parent, FArrayType src) {
+	public Element handleArray(ElementContainer<?> parent, FArrayType src) {
 		
-		Element array = processor.makeArray(parent, src);
+		Element array = processor.handleArray(parent, src);
 		
 		String elementType = array.GetGenlinks().split("=")[1].replaceFirst(";", "");
 		Element type = EARepositoryAccessor.INSTANCE.findElement(elementType);
@@ -131,9 +131,9 @@ public class DependencyResolver extends ImportProcessorDecorator {
 	}
 
 	@Override
-	public Element makeStructure(ElementContainer<?> parent, FStructType src) {
+	public Element handleStructure(ElementContainer<?> parent, FStructType src) {
 		
-		Element struct = processor.makeStructure(parent, src);
+		Element struct = processor.handleStructure(parent, src);
 				
 		if(src.getBase() != null) {
 			Element superStruct = EARepositoryAccessor.INSTANCE.findElement(src.getBase().getName());
@@ -151,9 +151,9 @@ public class DependencyResolver extends ImportProcessorDecorator {
 			
 		
 	@Override
-	public Element makeUnion(ElementContainer<?> parent, FUnionType src) {
+	public Element handleUnion(ElementContainer<?> parent, FUnionType src) {
 		
-		Element union = processor.makeUnion(parent, src);
+		Element union = processor.handleUnion(parent, src);
 
 		if(src.getBase() != null) {
 			Element superUnion = EARepositoryAccessor.INSTANCE.findElement(src.getBase().getName());
@@ -170,10 +170,10 @@ public class DependencyResolver extends ImportProcessorDecorator {
 	}
 
 	@Override
-	public Element makeEnumeration(ElementContainer<?> parent,
+	public Element handleEnumeration(ElementContainer<?> parent,
 			FEnumerationType src) {
 		
-		Element enumeration = processor.makeEnumeration(parent, src);
+		Element enumeration = processor.handleEnumeration(parent, src);
 
 		if(src.getBase() != null) {
 			Element superEnum = EARepositoryAccessor.INSTANCE.findElement(src.getBase().getName());
@@ -190,9 +190,9 @@ public class DependencyResolver extends ImportProcessorDecorator {
 	}
 
 	@Override
-	public Element makeInterface(ElementContainer<?> parent, FInterface src) {
+	public Element handleInterface(ElementContainer<?> parent, FInterface src) {
 		
-		Element _interface = processor.makeInterface(parent, src);
+		Element _interface = processor.handleInterface(parent, src);
 		
 		if(EAConstants.GENERATE_BROADCAST.equals("true")) {
 			// Check if we have broadcast-interface relation ship

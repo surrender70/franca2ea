@@ -24,6 +24,7 @@ import org.franca.importer.ea.internal.ElementCreator;
 import org.franca.importer.ea.internal.FindByName;
 import org.franca.importer.ea.internal.Franca2EA;
 import org.franca.importer.ea.internal.ImportProcessorDecorator;
+import org.franca.importer.ea.internal.ImporterFacadeImpl;
 import org.franca.importer.ea.internal.ManualResolver;
 import org.franca.importer.ea.internal.utils.EARepositoryAccessor;
 import org.franca.importer.ea.internal.utils.ElementContainer;
@@ -74,8 +75,9 @@ public class ManualResolverTest {
 
 			@Override
 			protected void configure() { 
-				bind(IUserFeedbackCallback.class).to(MockManualResolverOk.class);
+				bind(ManualResolveCallback.class).to(MockManualResolverOk.class);
 				bindConstant().annotatedWith(Names.named("create")).to(true);
+				bind(ImporterFacade.class).to(ImporterFacadeImpl.class);
 			}
 			
 			@Provides
@@ -89,9 +91,9 @@ public class ManualResolverTest {
 									new DummyProcessor()))) {
 
 							@Override
-							public Element makeStructure(ElementContainer<?> parent, FStructType src) {
+							public Element handleStructure(ElementContainer<?> parent, FStructType src) {
 
-								Element result = processor.makeStructure(parent, src);
+								Element result = processor.handleStructure(parent, src);
 								
 								assertNotNull(result);
 								
@@ -100,9 +102,9 @@ public class ManualResolverTest {
 							}
 
 							@Override
-							public Element makeUnion(ElementContainer<?> parent, FUnionType src) {
+							public Element handleUnion(ElementContainer<?> parent, FUnionType src) {
 
-								Element result = processor.makeUnion(parent, src);
+								Element result = processor.handleUnion(parent, src);
 								
 								assertNotNull(result);
 								
@@ -112,92 +114,92 @@ public class ManualResolverTest {
 							
 							
 							@Override
-							public Method makeSimpleMethod(Element parent, FMethod src) {
+							public Method handleSimpleMethod(Element parent, FMethod src) {
 
-								return processor.makeSimpleMethod(parent, src);
+								return processor.handleSimpleMethod(parent, src);
 							}
 
 							@Override
-							public Parameter makeParameter(Method parent,
+							public Parameter handleParameter(Method parent,
 									EParamType direction, FArgument src) {
 								// TODO Auto-generated method stub
 								return null;
 							}
 
 							@Override
-							public Package makePackage(Package parent, FModel src,
+							public Package handleModel(Package parent, FModel src,
 									String packageName) {
 								// TODO Auto-generated method stub
-								return processor.makePackage(parent, src, packageName);
+								return processor.handleModel(parent, src, packageName);
 							}
 
 							@Override
-							public Element makeInterface(ElementContainer<?> parent, FInterface src) {
+							public Element handleInterface(ElementContainer<?> parent, FInterface src) {
 
-								return processor.makeInterface(parent, src);
+								return processor.handleInterface(parent, src);
 							}
 
 							@Override
-							public Attribute makeField(Element parent, FField src) {
+							public Attribute handleField(Element parent, FField src) {
 								// TODO Auto-generated method stub
-								return processor.makeField(parent, src);
+								return processor.handleField(parent, src);
 							}
 
 							@Override
-							public Attribute makeEnumerator(Element parent,
+							public Attribute handleEnumerator(Element parent,
 									FEnumerator src) {
 								// TODO Auto-generated method stub
-								return processor.makeEnumerator(parent, src);
+								return processor.handleEnumerator(parent, src);
 							}
 
 							@Override
-							public Element makeEnumeration(ElementContainer<?> parent,
+							public Element handleEnumeration(ElementContainer<?> parent,
 									FEnumerationType src) {
 
-								return processor.makeEnumeration(parent, src);
+								return processor.handleEnumeration(parent, src);
 							}
 
 							@Override
-							public Method makeBroadcastMethod(Element parent,
+							public Method handleBroadcastMethod(Element parent,
 									FBroadcast src) {
 								// TODO Auto-generated method stub
 								return null;
 							}
 
 							@Override
-							public Element makeTypedef(ElementContainer<?> parent, FTypeDef src) {
+							public Element handleTypedef(ElementContainer<?> parent, FTypeDef src) {
 
-								return processor.makeTypedef(parent, src);
+								return processor.handleTypedef(parent, src);
 							}
 
 							@Override
-							public Element makeArray(ElementContainer<?> parent, FArrayType src) {
+							public Element handleArray(ElementContainer<?> parent, FArrayType src) {
 
-								return processor.makeArray(parent, src);
+								return processor.handleArray(parent, src);
 							}
 
 							@Override
-							public Element makeMap(ElementContainer<?> parent, FMapType src) {
+							public Element handleMap(ElementContainer<?> parent, FMapType src) {
 								
-								return processor.makeMap(parent, src);
+								return processor.handleMap(parent, src);
 							}
 
 							@Override
-							public Attribute makeMapKey(Element parent, FTypeRef src) {
+							public Attribute handleMapKey(Element parent, FTypeRef src) {
 								
-								return processor.makeMapKey(parent, src);
+								return processor.handleMapKey(parent, src);
 							}
 
 							@Override
-							public Attribute makeMapValue(Element parent, FTypeRef src) {
+							public Attribute handleMapValue(Element parent, FTypeRef src) {
 								
-								return processor.makeMapValue(parent, src);
+								return processor.handleMapValue(parent, src);
 							}
 
 							@Override
-							public Attribute makeAttribute(Element parent,
+							public Attribute handleAttribute(Element parent,
 									FAttribute src) {
-								return processor.makeAttribute(parent, src);
+								return processor.handleAttribute(parent, src);
 							}
 							
 							

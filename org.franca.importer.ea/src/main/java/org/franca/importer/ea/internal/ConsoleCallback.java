@@ -12,11 +12,11 @@ import org.franca.core.franca.FField;
 import org.franca.core.franca.FStructType;
 import org.franca.core.franca.FTypeDef;
 import org.franca.core.franca.FUnionType;
-import org.franca.importer.ea.IUserFeedbackCallback;
+import org.franca.importer.ea.ManualResolveCallback;
 import org.sparx.Attribute;
 import org.sparx.Element;
 
-public class ConsoleCallback implements IUserFeedbackCallback {
+public class ConsoleCallback implements ManualResolveCallback {
 
 	@Override
 	public Element selectElement(FStructType src, List<Element> elems) {
@@ -45,13 +45,6 @@ public class ConsoleCallback implements IUserFeedbackCallback {
 		return selectElement(elems);
 	}
 
-
-
-	@Override
-	public int selectAttribute(String title, List<Attribute> attrs) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	
 	@Override

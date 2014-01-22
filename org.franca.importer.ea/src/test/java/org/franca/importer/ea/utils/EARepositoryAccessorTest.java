@@ -15,6 +15,7 @@ import org.franca.importer.ea.internal.DependencyResolver;
 import org.franca.importer.ea.internal.DummyProcessor;
 import org.franca.importer.ea.internal.ElementCreator;
 import org.franca.importer.ea.internal.Franca2EA;
+import org.franca.importer.ea.internal.ImporterFacadeImpl;
 import org.franca.importer.ea.internal.NotesUpdater;
 import org.franca.importer.ea.internal.utils.EARepositoryAccessor;
 import org.junit.AfterClass;
@@ -48,6 +49,7 @@ public class EARepositoryAccessorTest {
 			@Override
 			protected void configure() {
 				bindConstant().annotatedWith(Names.named("create")).to(true);				
+				bind(ImporterFacade.class).to(ImporterFacadeImpl.class);
 			}
 			
 			@Provides

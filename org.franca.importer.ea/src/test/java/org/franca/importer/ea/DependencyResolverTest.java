@@ -1,11 +1,11 @@
 package org.franca.importer.ea;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
 import org.eclipse.emf.common.util.URI;
-import org.franca.core.dsl.FrancaIDLHelpers;
 import org.franca.core.franca.FArgument;
 import org.franca.core.franca.FArrayType;
 import org.franca.core.franca.FAttribute;
@@ -23,20 +23,16 @@ import org.franca.core.franca.FTypeCollection;
 import org.franca.core.franca.FTypeDef;
 import org.franca.core.franca.FTypeRef;
 import org.franca.core.franca.FUnionType;
-import org.franca.importer.ea.internal.AppearanceCustomizer;
 import org.franca.importer.ea.internal.DependencyResolver;
 import org.franca.importer.ea.internal.DummyProcessor;
 import org.franca.importer.ea.internal.ElementCreator;
-import org.franca.importer.ea.internal.Franca2EA;
 import org.franca.importer.ea.internal.ImportProcessorDecorator;
-import org.franca.importer.ea.internal.NotesUpdater;
-import org.franca.importer.ea.internal.utils.EARepositoryAccessor;
-import org.franca.importer.ea.internal.utils.ElementContainer;
+import org.franca.importer.ea.internal.ImporterFacadeImpl;
 import org.franca.importer.ea.internal.utils.EAConstants.EParamType;
 import org.franca.importer.ea.internal.utils.EAConstants.EStereoType;
-import org.junit.After;
+import org.franca.importer.ea.internal.utils.EARepositoryAccessor;
+import org.franca.importer.ea.internal.utils.ElementContainer;
 import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.sparx.Attribute;
@@ -83,6 +79,7 @@ public class DependencyResolverTest {
 			@Override
 			protected void configure() {
 				bindConstant().annotatedWith(Names.named("create")).to(true);
+				bind(ImporterFacade.class).to(ImporterFacadeImpl.class);
 			}
 
 			@Provides
@@ -93,53 +90,53 @@ public class DependencyResolverTest {
 								new DummyProcessor()))) {
 
 					@Override
-					public Package makePackage(Package parent, FModel src,
+					public Package handleModel(Package parent, FModel src,
 							String packageName) {
 						// TODO Auto-generated method stub
-						return super.makePackage(parent, src, packageName);
+						return super.handleModel(parent, src, packageName);
 					}
 
 					@Override
-					public Package makePackage(Package parent,
+					public Package handleTypeCollection(Package parent,
 							FTypeCollection src) {
 						// TODO Auto-generated method stub
-						return super.makePackage(parent, src);
+						return super.handleTypeCollection(parent, src);
 					}
 
 					@Override
-					public Element makeInterface(ElementContainer<?> parent,
+					public Element handleInterface(ElementContainer<?> parent,
 							FInterface src) {
 						// TODO Auto-generated method stub
-						return super.makeInterface(parent, src);
+						return super.handleInterface(parent, src);
 					}
 
 					@Override
-					public Method makeSimpleMethod(Element parent, FMethod src) {
+					public Method handleSimpleMethod(Element parent, FMethod src) {
 						// TODO Auto-generated method stub
-						return super.makeSimpleMethod(parent, src);
+						return super.handleSimpleMethod(parent, src);
 					}
 
 					@Override
-					public Method makeBroadcastMethod(Element parent,
+					public Method handleBroadcastMethod(Element parent,
 							FBroadcast src) {
 						// TODO Auto-generated method stub
-						return super.makeBroadcastMethod(parent, src);
+						return super.handleBroadcastMethod(parent, src);
 					}
 
 					@Override
-					public Parameter makeParameter(Method parent,
+					public Parameter handleParameter(Method parent,
 							EParamType direction, FArgument src) {
 						// TODO Auto-generated method stub
-						return super.makeParameter(parent, direction, src);
+						return super.handleParameter(parent, direction, src);
 					}
 
 					@Override
-					public Element makeStructure(ElementContainer<?> parent,
+					public Element handleStructure(ElementContainer<?> parent,
 							FStructType src) {
 
 						if (src.getBase() != null) {
 
-							Element subElement = processor.makeStructure(
+							Element subElement = processor.handleStructure(
 									parent, src);
 							Element superElement = EARepositoryAccessor.INSTANCE
 									.findElement(src.getBase().getName());
@@ -151,15 +148,15 @@ public class DependencyResolverTest {
 
 						}
 
-						return super.makeStructure(parent, src);
+						return super.handleStructure(parent, src);
 					}
 
 					@Override
-					public Element makeEnumeration(ElementContainer<?> parent,
+					public Element handleEnumeration(ElementContainer<?> parent,
 							FEnumerationType src) {
 
 						if (src.getBase() != null) {
-							Element subElement = processor.makeEnumeration(
+							Element subElement = processor.handleEnumeration(
 									parent, src);
 							Element superElement = EARepositoryAccessor.INSTANCE
 									.findElement(src.getBase().getName());
@@ -169,15 +166,15 @@ public class DependencyResolverTest {
 
 							checkInheritance(subElement, superElement);
 						}
-						return super.makeEnumeration(parent, src);
+						return super.handleEnumeration(parent, src);
 					}
 
 					@Override
-					public Attribute makeField(Element parent, FField src) {
+					public Attribute handleField(Element parent, FField src) {
 
 						if (src.getType().getDerived() != null) {
 
-							Attribute attr = processor.makeField(parent, src);
+							Attribute attr = processor.handleField(parent, src);
 
 							Element type = EARepositoryAccessor.INSTANCE
 									.findElement(attr.GetType());
@@ -220,29 +217,29 @@ public class DependencyResolverTest {
 
 						}
 
-						return super.makeField(parent, src);
+						return super.handleField(parent, src);
 					}
 
 					@Override
-					public Attribute makeEnumerator(Element parent,
+					public Attribute handleEnumerator(Element parent,
 							FEnumerator src) {
 
-						return super.makeEnumerator(parent, src);
+						return super.handleEnumerator(parent, src);
 					}
 
 					@Override
-					public Element makeTypedef(ElementContainer<?> parent,
+					public Element handleTypedef(ElementContainer<?> parent,
 							FTypeDef src) {
-						return super.makeTypedef(parent, src);
+						return super.handleTypedef(parent, src);
 					}
 
 					@Override
-					public Element makeArray(ElementContainer<?> parent,
+					public Element handleArray(ElementContainer<?> parent,
 							FArrayType src) {
 
 						if (src.getElementType().getDerived() != null) {
 
-							Element array = processor.makeArray(parent, src);
+							Element array = processor.handleArray(parent, src);
 							Element arrayElementType = EARepositoryAccessor.INSTANCE
 									.findElement(src.getElementType()
 											.getDerived().getName());
@@ -265,15 +262,15 @@ public class DependencyResolverTest {
 
 						}
 
-						return super.makeArray(parent, src);
+						return super.handleArray(parent, src);
 					}
 
 					@Override
-					public Element makeUnion(ElementContainer<?> parent,
+					public Element handleUnion(ElementContainer<?> parent,
 							FUnionType src) {
 
 						if (src.getBase() != null) {
-							Element subElement = processor.makeUnion(parent,
+							Element subElement = processor.handleUnion(parent,
 									src);
 							Element superElement = EARepositoryAccessor.INSTANCE
 									.findElement(src.getBase().getName());
@@ -283,47 +280,47 @@ public class DependencyResolverTest {
 
 							checkInheritance(subElement, superElement);
 						}
-						return super.makeUnion(parent, src);
+						return super.handleUnion(parent, src);
 					}
 
 					@Override
-					public Element makeMap(ElementContainer<?> parent,
+					public Element handleMap(ElementContainer<?> parent,
 							FMapType src) {
 						// TODO Auto-generated method stub
-						return super.makeMap(parent, src);
+						return super.handleMap(parent, src);
 					}
 
 					@Override
-					public Attribute makeMapKey(Element parent, FTypeRef src) {
+					public Attribute handleMapKey(Element parent, FTypeRef src) {
 						// TODO Auto-generated method stub
-						return super.makeMapKey(parent, src);
+						return super.handleMapKey(parent, src);
 					}
 
 					@Override
-					public Attribute makeMapValue(Element parent, FTypeRef src) {
+					public Attribute handleMapValue(Element parent, FTypeRef src) {
 						// TODO Auto-generated method stub
-						return super.makeMapValue(parent, src);
+						return super.handleMapValue(parent, src);
 					}
 
 					@Override
-					public Attribute makeAttribute(Element parent,
+					public Attribute handleAttribute(Element parent,
 							FAttribute src) {
 						// TODO Auto-generated method stub
-						return super.makeAttribute(parent, src);
+						return super.handleAttribute(parent, src);
 					}
 
 					@Override
-					public Parameter makeParameter(Method parent,
+					public Parameter handleParameter(Method parent,
 							EParamType direction, FEnumerationType src) {
 						// TODO Auto-generated method stub
-						return super.makeParameter(parent, direction, src);
+						return super.handleParameter(parent, direction, src);
 					}
 
 					@Override
-					public Parameter makeParameter(Method parent,
+					public Parameter handleParameter(Method parent,
 							EParamType direction, FEnumerator src) {
 						// TODO Auto-generated method stub
-						return super.makeParameter(parent, direction, src);
+						return super.handleParameter(parent, direction, src);
 					}
 
 					private void checkInheritance(Element subElement,
