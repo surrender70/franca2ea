@@ -12,8 +12,12 @@
 	<!-- <properties> <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> 
 		</properties> -->
 
-	<!-- <repositories> <repository> <id>Sonatype Snapshots</id> <url>https://oss.sonatype.org/content/repositories/snapshots/</url> 
-		</repository> </repositories> -->
+	<repositories> 
+		<repository> 
+			<id>Sonatype Snapshots</id> 
+			<url>https://oss.sonatype.org/content/repositories/snapshots/</url> 
+		</repository> 
+	</repositories>
 
 	<build>
 		<plugins>
@@ -120,6 +124,18 @@
 			<version>2.5.0</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.franca</groupId>
+			<artifactId>org.franca.core</artifactId>
+			<version>0.8.11-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.franca</groupId>
+			<artifactId>org.franca.core.dsl</artifactId>
+			<version>0.8.11-SNAPSHOT</version>
+		</dependency>
+
 		<!-- <dependency> <groupId>org.eclipse.emf</groupId> <artifactId>org.eclipse.emf.mwe2.language</artifactId> 
 			<version>2.0.0</version> </dependency> -->
 
@@ -133,9 +149,10 @@
 		</dependency>
 
 		<!-- TO BE FIXED LATER - WHEN FRANCA IS OFFICIALLY AVAILABLE in MAVEN CENTRAL -->
+		<!-- 
 		<dependency>
 			<groupId>org.franca</groupId>
-			<artifactId>core</artifactId>
+			<artifactId>org.franca.core</artifactId>
 			<version>0.8.11</version>
 			<scope>system</scope>
 			<systemPath>${project.basedir}/src/main/resources/org.franca.core_0.8.11.jar</systemPath>
@@ -143,11 +160,12 @@
 
 		<dependency>
 			<groupId>org.franca</groupId>
-			<artifactId>core.dsl</artifactId>
+			<artifactId>org.franca.core.dsl</artifactId>
 			<version>0.8.11</version>
 			<scope>system</scope>
 			<systemPath>${project.basedir}/src/main/resources/org.franca.core.dsl_0.8.11.jar</systemPath>
 		</dependency>
+	-->
 
 		<!-- Unfortunately mwe2.language cannot be downloaded from any of the maven 
 			repositories Therefore it is hosted locally and re-deployed here. Will be 
