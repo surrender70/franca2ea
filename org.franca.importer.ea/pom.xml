@@ -11,14 +11,10 @@
 	<url>http://maven.apache.org</url>
 	<!-- <properties> <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> 
 		</properties> -->
-<!--  
-	<repositories>
-		<repository>
-			<id>Sonatype Snapshots</id>
-			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-		</repository>
-	</repositories>
--->
+
+	<!-- <repositories> <repository> <id>Sonatype Snapshots</id> <url>https://oss.sonatype.org/content/repositories/snapshots/</url> 
+		</repository> </repositories> -->
+
 	<build>
 		<plugins>
 			<plugin>
@@ -68,27 +64,27 @@
 					</execution>
 				</executions>
 			</plugin>
-<!--  
+
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<version>2.1</version>
-				<executions>
-					<execution>
-						<id>copy</id>
-						<phase>package</phase>
-						<goals>
-							<goal>copy-dependencies</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>
-								${project.build.directory}/lib
-							</outputDirectory>
-						</configuration>
-					</execution>
-				</executions>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>2.5</version>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>${project.basedir}/src/test/resources</directory>
+							<includes>
+								<include>**/*.eap</include>
+								<include>**/*.ldb</include>
+							</includes>
+							<excludes>
+								<exclude>**/*.fidl</exclude>
+							</excludes>
+							<followSymlinks>false</followSymlinks>
+						</fileset>
+					</filesets>
+				</configuration>
 			</plugin>
--->
+
 		</plugins>
 	</build>
 
@@ -124,6 +120,9 @@
 			<version>2.5.0</version>
 		</dependency>
 
+		<!-- <dependency> <groupId>org.eclipse.emf</groupId> <artifactId>org.eclipse.emf.mwe2.language</artifactId> 
+			<version>2.0.0</version> </dependency> -->
+
 		<!-- the eaapi.jar needs to be redeployed here -->
 		<dependency>
 			<groupId>org.sparx</groupId>
@@ -149,6 +148,18 @@
 			<scope>system</scope>
 			<systemPath>${project.basedir}/src/main/resources/org.franca.core.dsl_0.8.11.jar</systemPath>
 		</dependency>
+
+		<!-- Unfortunately mwe2.language cannot be downloaded from any of the maven 
+			repositories Therefore it is hosted locally and re-deployed here. Will be 
+			fixed later -->
+		<dependency>
+			<groupId>org.eclipse.emf</groupId>
+			<artifactId>org.eclipse.emf.mwe2.language</artifactId>
+			<version>2.0.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/main/resources/org.eclipse.emf.mwe2.language-2.0.0.jar</systemPath>
+		</dependency>
+
 
 	</dependencies>
 </project>
