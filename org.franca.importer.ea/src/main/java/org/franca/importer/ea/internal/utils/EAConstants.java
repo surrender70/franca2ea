@@ -105,7 +105,7 @@ public interface EAConstants {
 				
 		PACKAGE (MappingProperties.getProperty("classtype.package", "Package")),
 		CLASS (MappingProperties.getProperty("classtype.class", "Class")),
-		ENUMERATION (MappingProperties.getProperty("classtype.enumeration", "Enumeration")),
+		ENUMERATION (MappingProperties.getProperty("classtype.enumeration", "Class")),
 		PARAMETER (MappingProperties.getProperty("classtype.parameter", "Parameter")),
 		INTERFACE (MappingProperties.getProperty("classtype.interface", "Interface"));
 		
@@ -127,7 +127,7 @@ public interface EAConstants {
 		STRUCTURE(MappingProperties.getProperty("stereotype.structure", "struct")),
 		UNION(MappingProperties.getProperty("stereotype.union", "union")),
 		MAP(MappingProperties.getProperty("stereotype.map", "map")),
-		ENUMERATION(MappingProperties.getProperty("stereotype.enumeration", "enumeration")),
+		ENUMERATION(MappingProperties.getProperty("stereotype.enumeration", "FrancaEnum")),
 		ERROR_PARAMETER(MappingProperties.getProperty("stereotype.error-param", "error")),
 		METHOD(MappingProperties.getProperty("stereotype.method", "method")),
 		METHOD_FIREANDFORGET(MappingProperties.getProperty("stereotype.method-fireandforget", "fireAndForget")),
