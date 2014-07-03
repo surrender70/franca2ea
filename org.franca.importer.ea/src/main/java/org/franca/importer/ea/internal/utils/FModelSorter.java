@@ -65,6 +65,7 @@ public class FModelSorter extends FrancaSorter<FModel> {
 			}
 		}
 
+		//TODO Should rather be an exception
 		jlog.log(Level.SEVERE, "Can not find parent model for corresponding import "+i.getImportURI());
 		return null;
 	}
@@ -73,7 +74,11 @@ public class FModelSorter extends FrancaSorter<FModel> {
 		
 		// Check if model was loaded via fidl file reader
 		if(m.eResource() != null) {
-			return m.eResource().getURI().lastSegment().equals(i.getImportURI());
+			//FIXME What if a model with the same file name exists more than once, but in different paths
+			//This is a potential bug
+			String[] pathElements = i.getImportURI().split("/");
+			
+			return m.eResource().getURI().lastSegment().equals(pathElements[pathElements.length-1]);
 		}
 		// No, then the franca model was created differently, probably via M2M transformation
 		else {
