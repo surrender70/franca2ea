@@ -29,7 +29,7 @@ public class FModelSorter extends FrancaSorter<FModel> {
 	}
 
 	@Override
-	public boolean canSwitch(FModel m) {
+	public boolean canSwitch(FModel m) throws SortException {
 
 		if (m.getImports().size() == 0) {
 			return true;
@@ -49,9 +49,10 @@ public class FModelSorter extends FrancaSorter<FModel> {
 	 * Try to retrieve the FModel, where the given Import refers to
 	 * It must be contained in one of the lists
 	 * @param i The given Import
-	 * @return The FModel, that is refered from the iven Import
+	 * @return The FModel, that is referred from the given Import
+	 * @throws SortException 
 	 */
-	private FModel getFModelFromImport(Import i) {		
+	private FModel getFModelFromImport(Import i) throws SortException {		
 		
 		for(FModel m: mRemaining) {
 			if(modelNameEqualsImportName(m, i)) {
@@ -65,12 +66,11 @@ public class FModelSorter extends FrancaSorter<FModel> {
 			}
 		}
 
-		//TODO Should rather be an exception
-		jlog.log(Level.SEVERE, "Can not find parent model for corresponding import "+i.getImportURI());
-		return null;
+		// If the import is not found in any of the parent models, there is obviously s.th. wrong
+		throw new SortException("Can not find parent model for corresponding import "+i.getImportURI());
 	}
 
-	private boolean modelNameEqualsImportName(FModel m, Import i) {
+	private boolean modelNameEqualsImportName(FModel m, Import i) throws SortException {
 		
 		// Check if model was loaded via fidl file reader
 		if(m.eResource() != null) {
@@ -82,12 +82,7 @@ public class FModelSorter extends FrancaSorter<FModel> {
 		}
 		// No, then the franca model was created differently, probably via M2M transformation
 		else {
-			jlog.log(Level.SEVERE, "Obviously franca model was not loaded via Resource, but probably via M2M transformation");
-			return false;
-//			String filename = containerMap.get(m)+".fidl";			
-//			return filename.equals(i.getImportURI());			
-//			String[] tokens = m.getName().split("\\.");
-//			return (tokens[tokens.length-1]+".fidl").equals(i.getImportURI());
+			throw new SortException("Obviously franca model was not loaded via Resource, but probably via M2M transformation");
 		}
 	}
 	

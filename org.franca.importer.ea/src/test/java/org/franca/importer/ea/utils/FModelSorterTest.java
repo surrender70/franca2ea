@@ -16,6 +16,7 @@ import static org.junit.Assert.assertNotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.runtime.AssertionFailedException;
 import org.eclipse.emf.common.util.URI;
 import org.franca.core.dsl.FrancaIDLHelpers;
 import org.franca.core.dsl.FrancaPersistenceManager;
@@ -23,6 +24,7 @@ import org.franca.core.franca.FModel;
 import org.franca.importer.ea.internal.utils.FModelSorter;
 import org.franca.importer.ea.internal.utils.SortException;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -43,18 +45,18 @@ public class FModelSorterTest {
 		
 		URI root = URI.createURI("classpath:/");
 		URI m1 = URI.createFileURI("example/flightservice/flightdata.fidl");
-		URI m2 = URI.createFileURI("example/flightservice/common.fidl");
+		URI m2 = URI.createFileURI("example/common.fidl");
 
 		models.add(FrancaIDLHelpers.instance().loadModel(m1, root));
 		models.add(FrancaIDLHelpers.instance().loadModel(m2, root));
 				
 		FModelSorter modelSorter = new FModelSorter(models);
-		
+				
 		try {
 			modelSorter.sort();
 		} catch (SortException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Assert.fail("Unexpected Exception "+e.getMessage());
 		}
 		
 		List<FModel> sortedList = modelSorter.getSorted();

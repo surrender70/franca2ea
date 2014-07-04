@@ -30,18 +30,21 @@ public abstract class FrancaSorter<T> {
 	
 	public void sort() throws SortException {
 		
-		int before = mRemaining.size();
+		int beforeRemaining = mRemaining.size();
+		int beforeSorted = mSorted.size();
 		
 		for(T r: mRemaining) {
 			if(canSwitch(r)) {
 				switchElement(r);
 			}
 		}
+				
+		if(beforeRemaining == mRemaining.size()) {
+			throw new SortException("Sorting cannot be finished. Stopped before endup in an endless loop");
+		}
 		
-		int after = mRemaining.size();
-		
-		if(before == after) {
-			throw new SortException();
+		if(beforeRemaining+beforeSorted != mRemaining.size()+mSorted.size()) {
+			throw new SortException("Sorting algorithm lost one or more models to be sorted during recursion. Check algorithm");
 		}
 		
 		if(mRemaining.size() > 0) {
@@ -49,7 +52,7 @@ public abstract class FrancaSorter<T> {
 		}		
 	}
 	
-	abstract public boolean canSwitch(T element); 
+	abstract public boolean canSwitch(T element) throws SortException; 
 
 	public List<T> getSorted() {
 		return mSorted;

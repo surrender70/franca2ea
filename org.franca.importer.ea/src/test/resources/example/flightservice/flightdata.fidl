@@ -1,6 +1,6 @@
 package flightservice.flightdata
 
-import flightservice.common.CommonData.* from "common.fidl" 
+import flightservice.common.CommonData.* from "../common.fidl" 
 
 typeCollection FlightDataTypes {
 
