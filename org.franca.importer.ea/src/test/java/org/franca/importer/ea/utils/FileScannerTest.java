@@ -38,12 +38,21 @@ public class FileScannerTest {
 		List<String> files = scanner.getFiles("src/test/resources/example/flightservice");
 		
 		assertNotNull(files);
+		assertEquals(1, files.size());
+		
+		for(String f: files) {
+			assertTrue(f.endsWith(".fidl"));
+		}
+
+		files = scanner.getFiles("src/test/resources/example");
+		
+		assertNotNull(files);
 		assertEquals(2, files.size());
 		
 		for(String f: files) {
 			assertTrue(f.endsWith(".fidl"));
 		}
-		
+
 	}
 
 	@Test(expected=IllegalArgumentException.class)
